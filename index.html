@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Minuted shows you the real cost of your meetings, live, in dollars, as they happen.">
+  <title>Minuted — The cost of this meeting</title>
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:title" content="Minuted">
+  <meta property="og:description" content="See what your meetings actually cost. Live, in dollars, as they happen.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://minuted.org">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Plausible analytics -->
+  <script defer data-domain="minuted.org" src="https://plausible.io/js/script.js"></script>
+
+  <style>
+    :root {
+      /* Color system — anchored on purple, with full Minuted gradient */
+      --color-blue: #378ADD;
+      --color-purple: #7F77DD;
+      --color-coral: #D85A30;
+      --color-ink: #0E0B1E;
+      --color-ink-soft: #2A2640;
+      --color-mist: #F7F4FB;
+      --color-paper: #FDFCFF;
+      --color-border: rgba(14, 11, 30, 0.08);
+
+      /* The signature Minuted gradient */
+      --gradient-meeting: linear-gradient(135deg, #378ADD 0%, #7F77DD 45%, #D85A30 100%);
+      --gradient-soft: linear-gradient(135deg, #E5EEFB 0%, #EBE8FA 45%, #FBE3D9 100%);
+
+      /* Typography */
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      /* Spacing */
+      --container: 1200px;
+      --container-narrow: 780px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--color-ink);
+      background: var(--color-paper);
+      overflow-x: hidden;
+    }
+
+    /* Typography scale */
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      font-variation-settings: "opsz" 144, "SOFT" 50;
+    }
+
+    h2 {
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+      font-variation-settings: "opsz" 100;
+    }
+
+    h3 {
+      font-size: clamp(1.3rem, 2vw, 1.65rem);
+      font-family: var(--font-body);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    p { margin: 0 0 1em; }
+
+    a {
+      color: var(--color-purple);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover { color: var(--color-coral); }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 40px);
+    }
+
+    .container-narrow {
+      max-width: var(--container-narrow);
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 40px);
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 0;
+      background: rgba(253, 252, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: var(--color-ink);
+      letter-spacing: -0.02em;
+    }
+
+    .logo-mark {
+      width: 28px;
+      height: 28px;
+      background: var(--gradient-meeting);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-mark::after {
+      content: '';
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 6px;
+      height: 6px;
+      background: #FF3B30;
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(255, 59, 48, 0.6);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      color: var(--color-ink-soft);
+      font-weight: 500;
+    }
+
+    .nav-cta {
+      background: var(--color-ink);
+      color: white !important;
+      padding: 0.55rem 1.1rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--color-purple);
+      transform: translateY(-1px);
+      color: white !important;
+    }
+
+    @media (max-width: 640px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+    }
+
+    /* Hero */
+    .hero {
+      padding: clamp(8rem, 15vh, 12rem) 0 clamp(4rem, 10vh, 8rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 70%;
+      height: 120%;
+      background: var(--gradient-meeting);
+      opacity: 0.08;
+      filter: blur(120px);
+      z-index: -1;
+      animation: drift 20s ease-in-out infinite;
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-5%, 3%) scale(1.05); }
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-purple);
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      max-width: 14ch;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      background: var(--gradient-meeting);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-variation-settings: "opsz" 144, "SOFT" 100;
+    }
+
+    .hero-sub {
+      max-width: 54ch;
+      font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+      color: var(--color-ink-soft);
+      margin-top: 2rem;
+      line-height: 1.5;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--color-ink);
+      color: white !important;
+      padding: 0.9rem 1.6rem;
+      border-radius: 100px;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: transform 0.2s ease, background 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-meeting);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      color: white !important;
+    }
+
+    .btn-primary:hover::before {
+      opacity: 1;
+    }
+
+    .btn-primary span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .price-tag {
+      font-size: 0.9rem;
+      color: var(--color-ink-soft);
+      font-weight: 500;
+    }
+
+    .price-tag strong {
+      color: var(--color-ink);
+      font-weight: 600;
+    }
+
+    /* Section spacing */
+    section {
+      padding: clamp(4rem, 10vh, 8rem) 0;
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-purple);
+      margin-bottom: 1rem;
+    }
+
+    /* The pitch */
+    .pitch {
+      background: var(--color-mist);
+      position: relative;
+    }
+
+    .pitch-lead {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      line-height: 1.3;
+      color: var(--color-ink);
+      letter-spacing: -0.01em;
+      font-variation-settings: "opsz" 100;
+    }
+
+    .pitch-lead em {
+      font-style: italic;
+      color: var(--color-coral);
+    }
+
+    /* Features */
+    .features {
+      position: relative;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: clamp(1.5rem, 3vw, 2.5rem);
+      margin-top: 3rem;
+    }
+
+    .feature {
+      padding: 2rem;
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-purple);
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      background: var(--gradient-soft);
+      color: var(--color-purple);
+    }
+
+    .feature h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .feature p {
+      color: var(--color-ink-soft);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    /* Screenshots showcase */
+    .showcase {
+      background: linear-gradient(180deg, var(--color-paper) 0%, var(--color-mist) 100%);
+    }
+
+    .showcase-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      margin-bottom: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .showcase-intro {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+
+    .showcase-intro p {
+      color: var(--color-ink-soft);
+      font-size: 1.05rem;
+    }
+
+    .phone-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: clamp(1.5rem, 3vw, 3rem);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .phone-frame {
+      aspect-ratio: 9 / 19.5;
+      background: var(--color-ink);
+      border-radius: 38px;
+      padding: 8px;
+      box-shadow:
+        0 30px 60px -15px rgba(14, 11, 30, 0.25),
+        0 10px 30px -10px rgba(14, 11, 30, 0.15);
+      position: relative;
+      transition: transform 0.4s ease;
+    }
+
+    .phone-frame:hover {
+      transform: translateY(-8px);
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 30px;
+      overflow: hidden;
+      position: relative;
+      background: var(--gradient-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-ink-soft);
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 1rem;
+      font-weight: 500;
+    }
+
+    .phone-screen.stage-5 {
+      background: linear-gradient(180deg, #FFD9D0 0%, #F5A190 50%, #E88770 100%);
+      color: #5C2414;
+    }
+
+    .phone-screen.share-card {
+      background: linear-gradient(180deg, #E9D8F0 0%, #EABDD0 50%, #E89DA8 100%);
+      color: #4B1E3A;
+    }
+
+    .phone-screen.cool {
+      background: linear-gradient(180deg, #E5EEFB 0%, #DAE5F8 100%);
+      color: #1A3B6B;
+    }
+
+    .phone-caption {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.92rem;
+      color: var(--color-ink-soft);
+      font-weight: 500;
+    }
+
+    /* Philosophy */
+    .philosophy {
+      background: var(--color-ink);
+      color: var(--color-paper);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .philosophy::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 150%;
+      background: var(--gradient-meeting);
+      opacity: 0.12;
+      filter: blur(100px);
+      z-index: 0;
+    }
+
+    .philosophy .container-narrow {
+      position: relative;
+      z-index: 1;
+    }
+
+    .philosophy h2 {
+      color: var(--color-paper);
+    }
+
+    .philosophy-lead {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      line-height: 1.4;
+      color: var(--color-paper);
+      font-variation-settings: "opsz" 100;
+      margin-top: 2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .philosophy-lead em {
+      font-style: italic;
+      color: var(--color-coral);
+    }
+
+    .philosophy-points {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .philosophy-point {
+      border-left: 2px solid var(--color-purple);
+      padding-left: 1.25rem;
+    }
+
+    .philosophy-point strong {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 0.4rem;
+      color: var(--color-paper);
+    }
+
+    .philosophy-point p {
+      margin: 0;
+      font-size: 0.92rem;
+      color: rgba(253, 252, 255, 0.7);
+    }
+
+    /* Maker */
+    .maker {
+      background: var(--color-paper);
+    }
+
+    .maker-content {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .maker-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    .maker-label {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--color-ink-soft);
+      font-variation-settings: "opsz" 100;
+    }
+
+    .maker-text p {
+      font-size: 1.05rem;
+      color: var(--color-ink-soft);
+      line-height: 1.7;
+    }
+
+    .maker-text p:first-child::first-letter {
+      font-family: var(--font-display);
+      font-size: 3.5em;
+      font-weight: 400;
+      float: left;
+      line-height: 0.85;
+      margin: 0.05em 0.1em 0 0;
+      color: var(--color-coral);
+    }
+
+    .maker-coming {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: var(--gradient-soft);
+      border-radius: 16px;
+      font-size: 0.95rem;
+    }
+
+    .maker-coming strong {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 0.3rem;
+      color: var(--color-ink);
+    }
+
+    .maker-coming p {
+      margin: 0;
+      color: var(--color-ink-soft);
+      font-size: 0.95rem;
+    }
+
+    /* CTA band */
+    .cta-band {
+      position: relative;
+      padding: clamp(5rem, 12vh, 9rem) 0;
+      text-align: center;
+      background: var(--gradient-meeting);
+      color: white;
+      overflow: hidden;
+    }
+
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.15) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    .cta-band-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-band h2 {
+      color: white;
+      max-width: 16ch;
+      margin: 0 auto 2rem;
+    }
+
+    .cta-band h2 em {
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: white;
+      color: var(--color-ink) !important;
+      padding: 1rem 1.8rem;
+      border-radius: 100px;
+      font-weight: 500;
+      font-size: 1.05rem;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-white:hover {
+      transform: translateY(-2px);
+      color: var(--color-ink) !important;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--color-ink);
+      color: rgba(253, 252, 255, 0.7);
+      padding: 4rem 0 2rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    .footer-brand {
+      max-width: 320px;
+    }
+
+    .footer-brand .logo {
+      color: var(--color-paper);
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-paper);
+      margin: 0 0 1rem;
+    }
+
+    .footer-col a {
+      display: block;
+      color: rgba(253, 252, 255, 0.7);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-col a:hover {
+      color: var(--color-paper);
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid rgba(253, 252, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="logo">
+          <div class="logo-mark"></div>
+          <span>Minuted</span>
+        </a>
+        <div class="nav-links">
+          <a href="#what">What it does</a>
+          <a href="#showcase">See it</a>
+          <a href="#maker">The maker</a>
+          <a href="#" class="nav-cta">Get the app</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">For iPhone · iOS 26</div>
+      <h1>Every meeting has a <em>price tag.</em></h1>
+      <p class="hero-sub">Minuted shows you, live, what your meeting actually costs. The number climbs as you talk. The background shifts from calm blue to alarming coral. You stop before it gets ridiculous.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-primary">
+          <span>Download on the App Store</span>
+        </a>
+        <span class="price-tag"><strong>$2.99</strong> · No subscriptions · On-device only</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="pitch" id="what">
+    <div class="container-narrow">
+      <div class="section-eyebrow">The idea</div>
+      <p class="pitch-lead">Most meeting tools assume your time is free. It isn't. A one-hour sync with four senior people can cost <em>more than dinner for eight.</em> Minuted turns that invisible cost into something you can feel — a number on your screen, climbing with every minute you stay in the room.</p>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <div class="section-eyebrow">What it does</div>
+      <h2>Designed around the <em style="font-style:italic;color:var(--color-purple)">live number.</em></h2>
+      <div class="features-grid">
+
+        <div class="feature">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="6" x2="12" y2="12"></line>
+              <line x1="12" y1="12" x2="16" y2="14"></line>
+            </svg>
+          </div>
+          <h3>Live cost, in dollars</h3>
+          <p>The big number on your screen updates every frame. No watching a timer and doing math in your head — the cost is right there.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12h3l3-9 4 18 3-9h5"></path>
+            </svg>
+          </div>
+          <h3>The background reacts</h3>
+          <p>Start calm. A gradient shifts from cool blue through purple to urgent coral as the cost rises. Your phone knows when it's getting bad.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </div>
+          <h3>Alerts when it matters</h3>
+          <p>Pick thresholds — say, $250 for a warning and $750 for an alarm. Minuted taps you on the wrist when a meeting crosses into "why are we still here" territory.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+          <h3>History worth reading</h3>
+          <p>Every meeting, saved. Week over week you see where the money actually goes — which meetings are quick and useful, which are slowly bleeding you.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+              <line x1="12" y1="18" x2="12" y2="18"></line>
+            </svg>
+          </div>
+          <h3>Home screen widgets</h3>
+          <p>Keep this week's meeting spend where you can glance at it. Small and medium sizes; no need to open the app to know how much you've lost this week.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+              <polyline points="16 6 12 2 8 6"></polyline>
+              <line x1="12" y1="2" x2="12" y2="15"></line>
+            </svg>
+          </div>
+          <h3>Shareable summaries</h3>
+          <p>Finish a meeting, get a beautiful card with the total. Drop it into Slack, iMessage, a performance review — wherever the conversation needs to happen.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="showcase" id="showcase">
+    <div class="container">
+      <div class="section-eyebrow">In practice</div>
+      <div class="showcase-intro">
+        <h2>What it feels like to <em style="font-style:italic;color:var(--color-coral)">actually see</em> the cost.</h2>
+        <p>The app is quiet until it shouldn't be. Most meetings stay in the cool blue range and you barely notice it's there. Then something drags on, the gradient starts to warm, and you remember why you installed this in the first place.</p>
+      </div>
+
+      <div class="phone-grid">
+        <div>
+          <div class="phone-frame">
+            <div class="phone-screen cool">
+              [ Screenshot 1: Running meeting, cool stage ]
+            </div>
+          </div>
+          <p class="phone-caption">Calm start. Just a number, quietly counting.</p>
+        </div>
+
+        <div>
+          <div class="phone-frame">
+            <div class="phone-screen stage-5">
+              [ Screenshot 2: Stage 5 warm gradient, alarm banner ]
+            </div>
+          </div>
+          <p class="phone-caption">Things are escalating. You notice.</p>
+        </div>
+
+        <div>
+          <div class="phone-frame">
+            <div class="phone-screen share-card">
+              [ Screenshot 3: Share card with final total ]
+            </div>
+          </div>
+          <p class="phone-caption">When it's over, a card worth sharing.</p>
+        </div>
+
+        <div>
+          <div class="phone-frame">
+            <div class="phone-screen cool">
+              [ Screenshot 4: History screen ]
+            </div>
+          </div>
+          <p class="phone-caption">Your meetings, over time. The pattern gets loud.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="philosophy">
+    <div class="container-narrow">
+      <div class="section-eyebrow" style="color:var(--color-purple)">The approach</div>
+      <h2>Built to respect your time <em style="font-style:italic;color:var(--color-coral)">and your data.</em></h2>
+      <p class="philosophy-lead">Minuted runs entirely on your phone. No account. No cloud. No "anonymized analytics" of your meeting habits. The data stays where it belongs — with you.</p>
+
+      <div class="philosophy-points">
+        <div class="philosophy-point">
+          <strong>On-device only</strong>
+          <p>Everything stored locally. Nothing leaves your phone, ever.</p>
+        </div>
+        <div class="philosophy-point">
+          <strong>No subscription</strong>
+          <p>One price, once. No upsells, no premium tier.</p>
+        </div>
+        <div class="philosophy-point">
+          <strong>No ads</strong>
+          <p>You paid. You don't owe us anything more than that.</p>
+        </div>
+        <div class="philosophy-point">
+          <strong>No account</strong>
+          <p>Download, start using. That's it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="maker" id="maker">
+    <div class="container">
+      <div class="section-eyebrow">About the maker</div>
+      <div class="maker-content">
+        <div class="maker-label">Made by one person, on purpose.</div>
+        <div class="maker-text">
+          <p>Minuted is made by Kurt Klein — a person who sat in one too many meetings wondering what they were actually costing the company. The first version was a spreadsheet. This is what it grew into.</p>
+          <p>There's no team, no venture funding, no roadmap dictated by someone else. Just an app I built because I wanted it to exist, and thought maybe you would too.</p>
+
+          <div class="maker-coming">
+            <strong>Coming next: Subscription Tracker</strong>
+            <p>A second app, same philosophy. Track your subscriptions and see the real annual cost before you click "start free trial." In development now.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="cta-band-inner container">
+      <h2>Stop wondering. <em>Start seeing.</em></h2>
+      <a href="#" class="btn-white">
+        <span>Download on the App Store</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+      <p style="margin-top:1.5rem;opacity:0.85;font-size:0.95rem">$2.99 · iPhone · iOS 26 or later</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="logo">
+            <div class="logo-mark"></div>
+            <span>Minuted</span>
+          </div>
+          <p>See what your meetings actually cost. Live, in dollars, as they happen. Made by Kurt Klein.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="#what">What it does</a>
+          <a href="#showcase">See it</a>
+          <a href="#">App Store</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="https://09kleinkd.github.io/minuted-support/privacy.html">Privacy policy</a>
+          <a href="https://09kleinkd.github.io/minuted-support/support.html">Support</a>
+          <a href="mailto:hello@minuted.org">Contact</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Kurt Klein · Minuted</div>
+        <div>Made with care in Pennsylvania</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
