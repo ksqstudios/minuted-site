@@ -1,158 +1,548 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Support — Winnowed</title>
-  <meta name="description" content="Help, bug reports, and feedback for Winnowed. Written by the person who built it.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Help, FAQs, and contact info for Minuted — the meeting cost calculator.">
+  <title>Support — Minuted</title>
 
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%237A9B5E%22/><path d=%22M50 28c10 0 20 8 20 22s-10 22-20 22-20-8-20-22%22 fill=%22none%22 stroke=%22%23FAF5EC%22 stroke-width=%226%22/></svg>">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Support — Winnowed">
-  <meta property="og:description" content="Help, bug reports, and feedback for Winnowed. Written by the person who built it.">
-  <meta property="og:url" content="https://winnowed.app/support">
+  <meta property="og:title" content="Minuted — Support">
+  <meta property="og:description" content="Help, FAQs, and contact info for Minuted — the meeting cost calculator.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://winnowed.app/og-image.png">
+  <meta property="og:url" content="https://minuted.org/support">
+  <meta property="og:image" content="https://minuted.org/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-
-  <!-- Twitter card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://winnowed.app/og-image.png">
+  <meta name="twitter:image" content="https://minuted.org/og-image.png">
 
-  <meta name="theme-color" content="#FAF5EC">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/styles.css">
+  <script defer data-domain="minuted.org" src="https://plausible.io/js/script.js"></script>
 
-  <!-- Scroll fade-in utility -->
   <style>
-    .fade-up {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.9s ease-out, transform 0.9s ease-out;
-      will-change: opacity, transform;
+    :root {
+      --color-blue: #378ADD;
+      --color-purple: #7F77DD;
+      --color-coral: #D85A30;
+      --color-ink: #0E0B1E;
+      --color-ink-soft: #2A2640;
+      --color-mist: #F7F4FB;
+      --color-paper: #FDFCFF;
+      --color-border: rgba(14, 11, 30, 0.08);
+
+      --gradient-meeting: linear-gradient(135deg, #378ADD 0%, #7F77DD 45%, #D85A30 100%);
+      --gradient-soft: linear-gradient(135deg, #E5EEFB 0%, #EBE8FA 45%, #FBE3D9 100%);
+
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      --container: 1200px;
+      --container-narrow: 780px;
     }
-    .fade-up.is-visible {
-      opacity: 1;
-      transform: translateY(0);
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-    @media (prefers-reduced-motion: reduce) {
-      .fade-up {
-        opacity: 1;
-        transform: none;
-        transition: none;
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--color-ink);
+      background: var(--color-paper);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 6vw, 4.4rem);
+      font-variation-settings: "opsz" 144, "SOFT" 50;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-variation-settings: "opsz" 100;
+      font-weight: 500;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.35;
+    }
+
+    p { margin: 0 0 1em; }
+
+    a {
+      color: var(--color-purple);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover { color: var(--color-coral); }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 40px);
+    }
+
+    .container-narrow {
+      max-width: var(--container-narrow);
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 40px);
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 0;
+      background: rgba(253, 252, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: var(--color-ink);
+      letter-spacing: -0.02em;
+    }
+
+    .logo-mark {
+      width: 28px;
+      height: 28px;
+      background: var(--gradient-meeting);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-mark::after {
+      content: '';
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 6px;
+      height: 6px;
+      background: #FF3B30;
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(255, 59, 48, 0.6);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      color: var(--color-ink-soft);
+      font-weight: 500;
+    }
+
+    .nav-links a.active {
+      color: var(--color-purple);
+    }
+
+    .nav-cta {
+      background: var(--color-ink);
+      color: white !important;
+      padding: 0.55rem 1.1rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--color-purple);
+      transform: translateY(-1px);
+      color: white !important;
+    }
+
+    @media (max-width: 640px) {
+      .nav-links a:not(.nav-cta):not(.active) { display: none; }
+    }
+
+    /* Page hero */
+    .page-hero {
+      padding: clamp(7rem, 14vh, 10rem) 0 clamp(2rem, 4vh, 3rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -15%;
+      width: 60%;
+      height: 100%;
+      background: var(--gradient-meeting);
+      opacity: 0.06;
+      filter: blur(120px);
+      z-index: -1;
+    }
+
+    .page-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-purple);
+      margin-bottom: 1.5rem;
+    }
+
+    .page-hero h1 em {
+      font-style: italic;
+      background: var(--gradient-meeting);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-variation-settings: "opsz" 144, "SOFT" 100;
+    }
+
+    .page-hero-sub {
+      max-width: 60ch;
+      font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+      color: var(--color-ink-soft);
+      margin-top: 1.5rem;
+      line-height: 1.55;
+    }
+
+    /* Contact card */
+    .contact-card {
+      margin-top: 3rem;
+      padding: 2rem;
+      background: var(--gradient-soft);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: var(--color-paper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-purple);
+      flex-shrink: 0;
+    }
+
+    .contact-body {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .contact-body .contact-label {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-purple);
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-email {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+      font-weight: 500;
+      color: var(--color-ink);
+      font-variation-settings: "opsz" 100;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
+    .contact-email:hover {
+      color: var(--color-coral);
+    }
+
+    .contact-note {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--color-ink-soft);
+    }
+
+    /* FAQ */
+    .faq-section {
+      padding: clamp(3rem, 6vh, 5rem) 0 clamp(4rem, 10vh, 7rem);
+    }
+
+    .faq-section h2 {
+      margin-bottom: 2.5rem;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq {
+      padding: 1.75rem 2rem;
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .faq:hover {
+      border-color: var(--color-purple);
+      transform: translateY(-2px);
+    }
+
+    .faq h3 {
+      margin-bottom: 0.6rem;
+      color: var(--color-ink);
+    }
+
+    .faq p {
+      margin: 0;
+      color: var(--color-ink-soft);
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    .faq p + p {
+      margin-top: 0.75rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--color-ink);
+      color: rgba(253, 252, 255, 0.7);
+      padding: 4rem 0 2rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
       }
+    }
+
+    .footer-brand {
+      max-width: 320px;
+    }
+
+    .footer-brand .logo {
+      color: var(--color-paper);
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-paper);
+      margin: 0 0 1rem;
+    }
+
+    .footer-col a {
+      display: block;
+      color: rgba(253, 252, 255, 0.7);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-col a:hover {
+      color: var(--color-paper);
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid rgba(253, 252, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
     }
   </style>
-
-  <!-- Plausible analytics (privacy-preserving) -->
-  <script defer data-domain="winnowed.app" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
-  <div class="wash" aria-hidden="true"></div>
 
-  <main class="wrap">
-    <a href="/" class="brand">
-      <span class="brand-leaf">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z M2 21c0-3 1.85-5.36 5.08-6"/>
-        </svg>
-      </span>
-      <span class="brand-name">Winnowed</span>
-    </a>
-
-    <h1 class="hero">Support</h1>
-
-    <p class="hero-sub">Help, bug reports, and feedback</p>
-
-    <div class="prose">
-      <p class="lede">
-        Winnowed is built and supported by one person. If something isn't working, or you have an idea, or you just want to say hello — write directly. I read every message.
-      </p>
-      <p>
-        <a href="mailto:kurtdklein09@icloud.com" style="color: var(--rust); text-decoration: none; border-bottom: 1px solid rgba(160, 61, 30, 0.25);">kurtdklein09@icloud.com</a>
-      </p>
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="logo">
+          <div class="logo-mark"></div>
+          <span>Minuted</span>
+        </a>
+        <div class="nav-links">
+          <a href="/privacy">Privacy</a>
+          <a href="/support" class="active">Support</a>
+          <a href="/" class="nav-cta">Get the app</a>
+        </div>
+      </div>
     </div>
+  </nav>
 
-    <section class="sec">
-      <h2 class="fade-up">Before you email</h2>
-      <div class="prose fade-up">
-        <p>A few things that will help me help you faster:</p>
-        <ul>
-          <li>Your iOS version (Settings → General → About).</li>
-          <li>A description of what you were doing when the issue happened.</li>
-          <li>A screenshot, if the problem is visual.</li>
-        </ul>
+  <header class="page-hero">
+    <div class="container-narrow">
+      <div class="page-eyebrow">Help, FAQs, and contact</div>
+      <h1>Questions? <em>Start here.</em></h1>
+      <p class="page-hero-sub">Everything in Minuted is designed to be self-explanatory, but sometimes it isn't. Below are the questions people ask most, plus a direct line if your question isn't on the list.</p>
+
+      <div class="contact-card">
+        <div class="contact-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+        </div>
+        <div class="contact-body">
+          <div class="contact-label">Email</div>
+          <a href="mailto:minuted@ksqstudios.com" class="contact-email">minuted@ksqstudios.com</a>
+          <p class="contact-note">Answered by one human (the developer) at KSQ Studios. Expect a reply within a few days.</p>
+        </div>
       </div>
-    </section>
+    </div>
+  </header>
 
-    <section class="sec">
-      <p class="sec-label fade-up">Common questions</p>
+  <section class="faq-section">
+    <div class="container-narrow">
+      <h2>Frequently asked questions</h2>
 
-      <div class="faq fade-up">
-        <h3>How do I export my data?</h3>
-        <p>Settings → Data → Export to PDF. The PDF contains your full subscription history, including past reviews and price changes.</p>
+      <div class="faq-list">
+
+        <div class="faq">
+          <h3>Does Minuted work offline?</h3>
+          <p>Yes, completely. Minuted doesn't make any network requests and works without internet.</p>
+        </div>
+
+        <div class="faq">
+          <h3>Where is my data stored?</h3>
+          <p>All data — your roster of people, meeting history, settings — stays on your device. It is never uploaded to a server or synced to the cloud. See the <a href="/privacy">privacy policy</a> for more.</p>
+        </div>
+
+        <div class="faq">
+          <h3>Why do I need an hourly rate for someone on salary?</h3>
+          <p>Minuted estimates hourly rate from annual salary by dividing by 2,080 (a standard working-hours-per-year figure). You can adjust this ratio in Settings.</p>
+        </div>
+
+        <div class="faq">
+          <h3>The cost in the Live Activity isn't ticking — is that a bug?</h3>
+          <p>No, this is intentional. iOS doesn't allow Live Activities to update custom numbers continuously. Minuted shows the elapsed time ticking and the burn rate as a static reference. Open the app to see the exact live cost.</p>
+        </div>
+
+        <div class="faq">
+          <h3>How do I reset all my data?</h3>
+          <p>Open Minuted, go to Settings (gear icon on the Roster tab), and tap "Reset all data." You'll be asked to confirm. This can't be undone.</p>
+        </div>
+
+        <div class="faq">
+          <h3>Can I back up my data?</h3>
+          <p>Not directly within Minuted. However, if you have iCloud backups enabled for your iPhone, your Minuted data is included in that backup per your iCloud settings.</p>
+        </div>
+
+        <div class="faq">
+          <h3>Will there be an iPad or Apple Watch version?</h3>
+          <p>Yes to both — iPad and Apple Watch support are planned for a future update. No firm timeline yet, but both are actively on the roadmap.</p>
+        </div>
+
+        <div class="faq">
+          <h3>I have a feature request or found a bug. What should I do?</h3>
+          <p>Email <a href="mailto:minuted@ksqstudios.com">minuted@ksqstudios.com</a>. Bug reports are most useful when they include the iPhone model, iOS version, and a description of what you expected versus what happened.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="logo">
+            <div class="logo-mark"></div>
+            <span>Minuted</span>
+          </a>
+          <p>See what your meetings actually cost. Live, in dollars, as they happen. An app from <a href="https://ksqstudios.com" style="color:rgba(253,252,255,0.95);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;">KSQ Studios</a>.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="/#what">What it does</a>
+          <a href="/#showcase">See it</a>
+          <a href="/">Home</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/privacy">Privacy policy</a>
+          <a href="/support">Support</a>
+          <a href="mailto:minuted@ksqstudios.com">Contact</a>
+        </div>
       </div>
 
-      <div class="faq fade-up">
-        <h3>How do I change my review cadence?</h3>
-        <p>Settings → Ritual → Review cadence. You can pick monthly, quarterly, or twice a year. Quarterly is the default — it's the cadence Winnowed is designed around.</p>
+      <div class="footer-bottom">
+        <div>© 2026 KSQ Studios LLC · Minuted</div>
+        <div>Made with care in Pennsylvania</div>
       </div>
+    </div>
+  </footer>
 
-      <div class="faq fade-up">
-        <h3>Does Winnowed cancel subscriptions for me?</h3>
-        <p>No. Winnowed helps you decide what to cut. The actual cancellation happens in each service's own settings — Winnowed will open the cancellation page for you when it has one on file.</p>
-      </div>
-
-      <div class="faq fade-up">
-        <h3>Will Winnowed come to other platforms?</h3>
-        <p>iPhone first. iPad support and watchOS are on the roadmap. No plans for Android or Web — keeping the app small and on-device is part of the design.</p>
-      </div>
-    </section>
-
-    <section class="sec">
-      <div class="prose fade-up">
-        <p class="quiet" style="color: var(--text-muted);">
-          — Kurt Klein, Berwyn, Pennsylvania
-        </p>
-      </div>
-    </section>
-
-    <footer class="footer fade-up">
-      <div>© 2026 Kurt Klein</div>
-      <div class="footer-links">
-        <a href="/">Home</a>
-        <a href="/privacy">Privacy</a>
-        <a href="mailto:kurtdklein09@icloud.com">Email</a>
-      </div>
-    </footer>
-  </main>
-
-  <!-- Scroll-triggered fade-in -->
-  <script>
-    (function () {
-      var items = document.querySelectorAll('.fade-up');
-      if (!('IntersectionObserver' in window) || items.length === 0) {
-        for (var i = 0; i < items.length; i++) items[i].classList.add('is-visible');
-        return;
-      }
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -8% 0px'
-      });
-      items.forEach(function (el) { observer.observe(el); });
-    })();
-  </script>
 </body>
 </html>
