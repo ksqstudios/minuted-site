@@ -44,7 +44,8 @@
       "https://minuted.org/screenshots/meeting-cool.png",
       "https://minuted.org/screenshots/meeting-warning.png",
       "https://minuted.org/screenshots/meeting-alarm.png",
-      "https://minuted.org/screenshots/share-card.png"
+      "https://minuted.org/screenshots/share-card.png",
+      "https://minuted.org/screenshots/sync-devices.png"
     ],
     "author": {
       "@type": "Organization",
@@ -510,6 +511,20 @@
       margin-left: auto;
       margin-right: auto;
       line-height: 1.4;
+    }
+
+    .continuity {
+      max-width: 1000px;
+      margin: clamp(2.5rem, 5vw, 4rem) auto 0;
+      text-align: center;
+    }
+    .continuity-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .continuity .phone-caption {
+      max-width: 34ch;
     }
 
     /* Philosophy */
@@ -1005,6 +1020,12 @@
           <p class="phone-caption">When it's over, a card worth sharing in Slack.</p>
         </div>
       </div>
+
+      <div class="continuity reveal">
+        <img src="screenshots/sync-devices.png" alt="The same Minuted meeting open on an iPhone and an iPad side by side, both showing the identical running total, demonstrating iCloud sync across devices" class="continuity-img">
+        <p class="phone-caption">Started on your iPhone, already on your iPad. The same meeting and the same running total, carried over through your own iCloud.</p>
+      </div>
+
     </div>
   </section>
 
