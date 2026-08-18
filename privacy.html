@@ -426,7 +426,7 @@
 
   <header class="page-hero">
     <div class="container-narrow">
-      <div class="page-eyebrow">Last updated June 4, 2026</div>
+      <div class="page-eyebrow">Last updated August 18, 2026</div>
       <h1>Your data, <em>your device.</em></h1>
       <p class="page-hero-sub">Minuted has no account to create and no servers of ours. Your roster and meeting history sync across your devices through your own private iCloud, and we never see them. That's the policy, said plainly, and the details below back it up.</p>
     </div>
@@ -443,8 +443,9 @@
       <h2>What Minuted stores</h2>
       <p>Minuted stores the following data:</p>
       <ul>
-        <li>The names and hourly rates of people you add to your roster</li>
-        <li>Records of meetings you run, including their duration and attendees</li>
+        <li>The names, roles, and hourly rates of people you add to your roster</li>
+        <li>An email address for a person, only if you choose to add one, used to match calendar invitees to your roster</li>
+        <li>Records of meetings you run, including their duration, attendees, category, and your worth-it rating</li>
       </ul>
       <p>This data syncs across your own devices through your private iCloud, using Apple's CloudKit. It is stored in your personal iCloud account, encrypted under your Apple ID. KSQ Studios runs no servers, cannot see your data, and shares it with no one.</p>
 
@@ -457,11 +458,18 @@
         <li>No data is shared with third parties</li>
       </ul>
 
+      <h2>Calendar access</h2>
+      <p>Minuted can show the events still left on your calendar today, so you can start a meeting from one without retyping it. This is optional. The app asks for calendar access only at the moment you first use the feature, and everything else in Minuted works normally if you decline.</p>
+      <p>Calendar access is read-only. Minuted never creates, edits, or deletes anything on your calendar.</p>
+      <p>When you start a meeting from a calendar event, Minuted reads that event's title, time, invitees, and any video-conference link it contains, and uses them on your device to fill in the meeting and match invitees against your roster. Calendar events themselves are not copied into Minuted's storage or into iCloud. What is saved is the meeting you chose to run, the same record you would get by entering it by hand.</p>
+      <p>You can change or revoke calendar access at any time in the Settings app on iPhone and iPad, or in System Settings under Privacy and Security on a Mac.</p>
+
       <h2>Data deletion</h2>
-      <p>To delete your data, either use the "Reset all data" option in Minuted's Settings, or delete the app from your device. Deleting the app removes all associated data.</p>
+      <p>To delete your data, open Minuted's Settings and use either "Delete all meeting history," which clears your meetings and leaves your roster in place, or "Reset everything," which clears both. Because your data syncs, deleting it removes it from your other devices as well.</p>
+      <p>Deleting the app from all of your devices also removes the data associated with it.</p>
 
       <h2>iCloud sync</h2>
-      <p>Minuted uses Apple's CloudKit to sync your roster and meeting history across the devices signed in to your iCloud account, such as your iPhone and iPad. When you are signed in to iCloud, this happens automatically and keeps your data the same on each device.</p>
+      <p>Minuted uses Apple's CloudKit to sync your roster and meeting history across the devices signed in to your iCloud account: your iPhone, iPad, Mac, and Apple Watch. When you are signed in to iCloud, this happens automatically and keeps your data the same on each device.</p>
       <p>Your data is stored in the private database of your personal iCloud account, encrypted and tied to your Apple ID. KSQ Studios runs no servers of its own, cannot access your iCloud data, and never receives a copy of it. If you sign out of iCloud, Minuted keeps working with the data already on your device.</p>
       <p>If you also have iCloud Backup enabled, Apple may include Minuted's local data in your device backup per your iCloud settings. That backup is likewise encrypted under your Apple ID and is not accessible to the developer of Minuted.</p>
 
