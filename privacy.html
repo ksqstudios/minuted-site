@@ -4,13 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Minuted has no account and no servers of ours. Your data syncs across your devices through your private iCloud, and we never see it.">
-  <title>Privacy — Minuted</title>
-
-  <!-- Favicon -->
+  <title>Privacy, Minuted</title>
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
-  <meta property="og:title" content="Minuted — Privacy">
+  <meta property="og:title" content="Minuted, Privacy">
   <meta property="og:description" content="Minuted has no account and no servers of ours. Your data syncs across your devices through your private iCloud, and we never see it.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://minuted.org/privacy">
@@ -19,455 +16,66 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://minuted.org/og-image.png">
-
   <link rel="canonical" href="https://minuted.org/privacy">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-
-  <style>
-    :root {
-      --color-blue: #378ADD;
-      --color-purple: #7F77DD;
-      --color-coral: #D85A30;
-      --color-ink: #0E0B1E;
-      --color-ink-soft: #2A2640;
-      --color-mist: #F7F4FB;
-      --color-paper: #FDFCFF;
-      --color-border: rgba(14, 11, 30, 0.08);
-
-      --gradient-meeting: linear-gradient(135deg, #378ADD 0%, #7F77DD 45%, #D85A30 100%);
-      --gradient-soft: linear-gradient(135deg, #E5EEFB 0%, #EBE8FA 45%, #FBE3D9 100%);
-
-      --font-display: 'Fraunces', Georgia, serif;
-      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-
-      --container: 1200px;
-      --container-narrow: 780px;
-    }
-
-    * { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: var(--font-body);
-      font-size: 17px;
-      line-height: 1.6;
-      color: var(--color-ink);
-      background: var(--color-paper);
-      overflow-x: hidden;
-    }
-
-    h1, h2, h3, h4 {
-      font-family: var(--font-display);
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-      margin: 0;
-    }
-
-    h1 {
-      font-size: clamp(2.6rem, 6vw, 4.4rem);
-      font-variation-settings: "opsz" 144, "SOFT" 50;
-    }
-
-    h2 {
-      font-size: clamp(1.5rem, 2.5vw, 1.9rem);
-      font-variation-settings: "opsz" 100;
-      font-weight: 500;
-    }
-
-    h3 {
-      font-size: 1.1rem;
-      font-family: var(--font-body);
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-    }
-
-    p { margin: 0 0 1em; }
-
-    a {
-      color: var(--color-purple);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-
-    a:hover { color: var(--color-coral); }
-
-    .container {
-      max-width: var(--container);
-      margin: 0 auto;
-      padding: 0 clamp(20px, 5vw, 40px);
-    }
-
-    .container-narrow {
-      max-width: var(--container-narrow);
-      margin: 0 auto;
-      padding: 0 clamp(20px, 5vw, 40px);
-    }
-
-    /* Nav */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 1.25rem 0;
-      background: rgba(253, 252, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      font-weight: 500;
-      color: var(--color-ink);
-      letter-spacing: -0.02em;
-    }
-
-    .logo-mark {
-      width: 28px;
-      height: 28px;
-      background: var(--gradient-meeting);
-      border-radius: 8px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .logo-mark::after {
-      content: '';
-      position: absolute;
-      top: 6px;
-      right: 6px;
-      width: 6px;
-      height: 6px;
-      background: #FF3B30;
-      border-radius: 50%;
-      box-shadow: 0 0 6px rgba(255, 59, 48, 0.6);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-      font-size: 0.95rem;
-    }
-
-    .nav-links a {
-      color: var(--color-ink-soft);
-      font-weight: 500;
-    }
-
-    .nav-links a.active {
-      color: var(--color-purple);
-    }
-
-    .nav-cta {
-      background: var(--color-ink);
-      color: white !important;
-      padding: 0.55rem 1.1rem;
-      border-radius: 100px;
-      font-size: 0.9rem;
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    .nav-cta:hover {
-      background: var(--color-purple);
-      transform: translateY(-1px);
-      color: white !important;
-    }
-
-    @media (max-width: 640px) {
-      .nav-links a:not(.nav-cta):not(.active) { display: none; }
-    }
-
-    /* Page hero — quieter than the main site's */
-    .page-hero {
-      padding: clamp(7rem, 14vh, 10rem) 0 clamp(2rem, 4vh, 3rem);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .page-hero::before {
-      content: '';
-      position: absolute;
-      top: -30%;
-      right: -15%;
-      width: 60%;
-      height: 100%;
-      background: var(--gradient-meeting);
-      opacity: 0.06;
-      filter: blur(120px);
-      z-index: -1;
-    }
-
-    .page-eyebrow {
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-purple);
-      margin-bottom: 1.5rem;
-    }
-
-    .page-hero h1 em {
-      font-style: italic;
-      background: var(--gradient-meeting);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-variation-settings: "opsz" 144, "SOFT" 100;
-    }
-
-    .page-hero-sub {
-      max-width: 60ch;
-      font-size: clamp(1.05rem, 1.4vw, 1.2rem);
-      color: var(--color-ink-soft);
-      margin-top: 1.5rem;
-      line-height: 1.55;
-    }
-
-    /* Article body */
-    article {
-      padding: clamp(2rem, 5vh, 4rem) 0 clamp(4rem, 10vh, 7rem);
-    }
-
-    article h2 {
-      margin-top: 3rem;
-      margin-bottom: 0.8rem;
-    }
-
-    article h2:first-of-type {
-      margin-top: 0;
-    }
-
-    article p {
-      color: var(--color-ink-soft);
-      font-size: 1.05rem;
-      line-height: 1.7;
-    }
-
-    article ul {
-      color: var(--color-ink-soft);
-      font-size: 1.05rem;
-      line-height: 1.7;
-      padding-left: 0;
-      list-style: none;
-    }
-
-    article ul li {
-      padding-left: 1.75rem;
-      position: relative;
-      margin-bottom: 0.5rem;
-    }
-
-    article ul li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0.75em;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--color-purple);
-    }
-
-    /* Summary callout at the top */
-    .summary {
-      padding: 1.75rem 2rem;
-      background: var(--gradient-soft);
-      border-radius: 16px;
-      margin-bottom: 3rem;
-    }
-
-    .summary-label {
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--color-purple);
-      margin-bottom: 0.6rem;
-    }
-
-    .summary p {
-      margin: 0;
-      font-family: var(--font-display);
-      font-weight: 400;
-      font-size: 1.15rem;
-      line-height: 1.5;
-      color: var(--color-ink);
-      font-variation-settings: "opsz" 100;
-      letter-spacing: -0.01em;
-    }
-
-    /* "What Minuted does not do" — styled as a clear list */
-    .negation-list li::before {
-      background: none;
-      width: auto;
-      height: auto;
-      top: 0.45em;
-      color: var(--color-coral);
-      content: '×';
-      font-weight: 700;
-      font-size: 1.1rem;
-      line-height: 1;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--color-ink);
-      color: rgba(253, 252, 255, 0.7);
-      padding: 4rem 0 2rem;
-      font-size: 0.9rem;
-    }
-
-    .footer-inner {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 3rem;
-      margin-bottom: 3rem;
-    }
-
-    @media (max-width: 768px) {
-      .footer-inner {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-    }
-
-    .footer-brand {
-      max-width: 320px;
-    }
-
-    .footer-brand .logo {
-      color: var(--color-paper);
-      margin-bottom: 1rem;
-    }
-
-    .footer-brand p {
-      font-size: 0.9rem;
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    .footer-col h4 {
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-paper);
-      margin: 0 0 1rem;
-    }
-
-    .footer-col a {
-      display: block;
-      color: rgba(253, 252, 255, 0.7);
-      margin-bottom: 0.5rem;
-    }
-
-    .footer-col a:hover {
-      color: var(--color-paper);
-    }
-
-    .footer-bottom {
-      padding-top: 2rem;
-      border-top: 1px solid rgba(253, 252, 255, 0.08);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      font-size: 0.85rem;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 
-  <nav>
-    <div class="container">
-      <div class="nav-inner">
-        <a href="/" class="logo">
-          <div class="logo-mark"></div>
-          <span>Minuted</span>
-        </a>
-        <div class="nav-links">
-          <a href="/privacy" class="active">Privacy</a>
-          <a href="/support">Support</a>
-          <a href="/" class="nav-cta">Get the app</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <header class="page-hero">
-    <div class="container-narrow">
-      <div class="page-eyebrow">Last updated October 23, 2026</div>
-      <h1>Your data, <em>your device.</em></h1>
-      <p class="page-hero-sub">Minuted has no account to create and no servers of ours. Your roster and meeting history sync across your devices through your own private iCloud, and we never see them. That's the policy, said plainly, and the details below back it up.</p>
+  <header class="bar">
+    <div class="bar-inner">
+      <a class="mark" href="/">
+        <img src="/apple-touch-icon.png" alt="" width="30" height="30">
+        Minuted
+      </a>
+      <nav aria-label="Site">
+        <a href="/support">Support</a>
+        <a class="bar-cta" href="https://apps.apple.com/us/app/minuted/id6764897137" rel="noopener">Get the app</a>
+      </nav>
     </div>
   </header>
 
-  <article>
-    <div class="container-narrow">
+  <div class="doc-band">
+    <header class="doc-head">
+      <h1>Your data, your device.</h1>
+      <p class="updated">Last updated October 23, 2026</p>
+      <p class="sub">Minuted has no account to create and no servers of ours. Your roster and meeting history sync across your devices through your own private iCloud, and we never see them. That's the policy, said plainly, and the details below back it up.</p>
+    </header>
+  </div>
 
-      <div class="summary">
-        <div class="summary-label">The short version</div>
-        <p>No account with us. No servers of ours. No tracking, no analytics, no ads. Your roster and meeting history sync across your own devices through your private iCloud, and nowhere else.</p>
-      </div>
+  <main class="doc">
 
-      <h2>What Minuted stores</h2>
-      <p>Minuted stores the following data:</p>
-      <ul>
-        <li>The names, roles, and hourly rates of people you add to your roster</li>
-        <li>An email address for a person, only if you choose to add one, used to match calendar invitees to your roster</li>
-        <li>Records of meetings you run, including their duration, attendees, category, and your worth-it rating</li>
-        <li>For meetings you choose to record, a transcript and the notes generated from it</li>
-      </ul>
-      <p>This data syncs across your own devices through your private iCloud, using Apple's CloudKit. It is stored in your personal iCloud account, encrypted under your Apple ID. KSQ Studios runs no servers, cannot see your data, and shares it with no one.</p>
+<div class="panel">
+<strong>The short version</strong>
+<p>No account with us. No servers of ours. No tracking, no analytics, no ads. Your roster and meeting history sync across your own devices through your private iCloud, and nowhere else.</p>
+</div>
+<h2>What Minuted stores</h2>
+<p>Minuted stores the following data:</p>
+<ul>
+<li>The names, roles, and hourly rates of people you add to your roster</li>
+<li>An email address for a person, only if you choose to add one, used to match calendar invitees to your roster</li>
+<li>Records of meetings you run, including their duration, attendees, category, and your worth-it rating</li>
+<li>For meetings you choose to record, a transcript and the notes generated from it</li>
+</ul>
+<p>This data syncs across your own devices through your private iCloud, using Apple's CloudKit. It is stored in your personal iCloud account, encrypted under your Apple ID. KSQ Studios runs no servers, cannot see your data, and shares it with no one.</p>
+<h2>What Minuted does not do</h2>
+<ul>
+<li>No account or sign-in is required to use Minuted</li>
+<li>No analytics or tracking frameworks are included in the app</li>
+<li>No crash reporting services are used</li>
+<li>No advertising or advertising-related data collection</li>
+<li>No data is shared with third parties</li>
+</ul>
+<h2>Calendar access</h2>
+<p>Minuted can show the events still left on your calendar today, so you can start a meeting from one without retyping it. This is optional. The app asks for calendar access only at the moment you first use the feature, and everything else in Minuted works normally if you decline.</p>
+<p>Calendar access is read-only. Minuted never creates, edits, or deletes anything on your calendar.</p>
+<p>When you start a meeting from a calendar event, Minuted reads that event's title, time, invitees, and any video-conference link it contains, and uses them on your device to fill in the meeting and match invitees against your roster. Calendar events themselves are not copied into Minuted's storage or into iCloud. What is saved is the meeting you chose to run, the same record you would get by entering it by hand.</p>
+<p>You can change or revoke calendar access at any time in the Settings app on iPhone and iPad, or in System Settings under Privacy and Security on a Mac.</p>
+<h2>Recording and notes</h2>
+<p>Minuted can record a meeting and turn it into structured notes: the decisions made, the items assigned, and the points that mattered. This is optional and never automatic. Recording starts only when you start it, on the meeting you choose, and the app asks for microphone and speech recognition access the first time you use it. Everything else in Minuted works normally if you decline.</p>
 
-      <h2>What Minuted does not do</h2>
-      <ul class="negation-list">
-        <li>No account or sign-in is required to use Minuted</li>
-        <li>No analytics or tracking frameworks are included in the app</li>
-        <li>No crash reporting services are used</li>
-        <li>No advertising or advertising-related data collection</li>
-        <li>No data is shared with third parties</li>
-      </ul>
-
-      <h2>Calendar access</h2>
-      <p>Minuted can show the events still left on your calendar today, so you can start a meeting from one without retyping it. This is optional. The app asks for calendar access only at the moment you first use the feature, and everything else in Minuted works normally if you decline.</p>
-      <p>Calendar access is read-only. Minuted never creates, edits, or deletes anything on your calendar.</p>
-      <p>When you start a meeting from a calendar event, Minuted reads that event's title, time, invitees, and any video-conference link it contains, and uses them on your device to fill in the meeting and match invitees against your roster. Calendar events themselves are not copied into Minuted's storage or into iCloud. What is saved is the meeting you chose to run, the same record you would get by entering it by hand.</p>
-      <p>You can change or revoke calendar access at any time in the Settings app on iPhone and iPad, or in System Settings under Privacy and Security on a Mac.</p>
-
-      <h2>Recording and notes</h2>
-      <p>Minuted can record a meeting and turn it into structured notes: the decisions made, the items assigned, and the points that mattered. This is optional and never automatic. Recording starts only when you start it, on the meeting you choose, and the app asks for microphone and speech recognition access the first time you use it. Everything else in Minuted works normally if you decline.</p>
-
-      <!--
         VERIFY BEFORE PUBLISHING: audio retention.
         Replace the sentence below with whichever is true of the shipped build.
 
@@ -477,69 +85,41 @@
 
         If the audio file is retained, say so plainly and state where it lives
         and for how long. Do not publish this section until this line is correct.
-      -->
-      <p>The recording is transcribed on your device and the audio itself is not kept.</p>
+      
+<p>The recording is transcribed on your device and the audio itself is not kept.</p>
+<p>The transcript stays on the device that made the recording. It is not synced, so a meeting recorded on your iPhone will show its transcript there and not on your iPad or Mac. The notes generated from it are part of the meeting record and sync with the rest of your history through your private iCloud.</p>
+<p>Notes are generated with Apple Intelligence. When Apple's Private Cloud Compute is available, the transcript is sent to it to write the notes, because it produces more complete notes for longer meetings than the model on your device. Private Cloud Compute is Apple's own server system for Apple Intelligence. Apple states that data sent to it is used only to complete the request, is never stored, and cannot be accessed by Apple.</p>
+<p>If Private Cloud Compute isn't available, or you turn off "Use Private Cloud Compute" in Minuted's Settings, notes are generated entirely on your device and nothing leaves it. Either way, the audio itself never leaves your device, and KSQ Studios receives nothing and can see nothing.</p>
+<p>Transcripts and notes are deleted along with the meeting they belong to, and are removed by both of the options described below.</p>
+<p>You can change or revoke microphone and speech recognition access at any time in the Settings app on iPhone and iPad, or in System Settings under Privacy and Security on a Mac.</p>
+<h2>Data deletion</h2>
+<p>To delete your data, open Minuted's Settings and use either "Delete all meeting history," which clears your meetings and leaves your roster in place, or "Reset everything," which clears both. Because your data syncs, deleting it removes it from your other devices as well.</p>
+<p>Deleting the app from all of your devices also removes the data associated with it.</p>
+<h2>iCloud sync</h2>
+<p>Minuted uses Apple's CloudKit to sync your roster and meeting history across the devices signed in to your iCloud account: your iPhone, iPad, Mac, and Apple Watch. When you are signed in to iCloud, this happens automatically and keeps your data the same on each device.</p>
+<p>Your data is stored in the private database of your personal iCloud account, encrypted and tied to your Apple ID. KSQ Studios runs no servers of its own, cannot access your iCloud data, and never receives a copy of it. If you sign out of iCloud, Minuted keeps working with the data already on your device.</p>
+<p>If you also have iCloud Backup enabled, Apple may include Minuted's local data in your device backup per your iCloud settings. That backup is likewise encrypted under your Apple ID and is not accessible to the developer of Minuted.</p>
+<h2>Children's privacy</h2>
+<p>Minuted is not directed at children under 13 and does not knowingly collect any information from children.</p>
+<h2>About this site</h2>
+<p>The minuted.org website collects nothing. No analytics, no cookies, no third-party scripts. The app itself contains no analytics either.</p>
+<h2>Changes to this policy</h2>
+<p>If this policy changes materially, an updated version will be posted here with a revised date.</p>
+<h2>Contact</h2>
+<p>Questions or concerns about this privacy policy can be directed to the email address listed on the <a href="/support">support page</a>.</p>
 
-      <p>The transcript stays on the device that made the recording. It is not synced, so a meeting recorded on your iPhone will show its transcript there and not on your iPad or Mac. The notes generated from it are part of the meeting record and sync with the rest of your history through your private iCloud.</p>
-      <p>Notes are generated with Apple Intelligence. When Apple's Private Cloud Compute is available, the transcript is sent to it to write the notes, because it produces more complete notes for longer meetings than the model on your device. Private Cloud Compute is Apple's own server system for Apple Intelligence. Apple states that data sent to it is used only to complete the request, is never stored, and cannot be accessed by Apple.</p>
-      <p>If Private Cloud Compute isn't available, or you turn off "Use Private Cloud Compute" in Minuted's Settings, notes are generated entirely on your device and nothing leaves it. Either way, the audio itself never leaves your device, and KSQ Studios receives nothing and can see nothing.</p>
-      <p>Transcripts and notes are deleted along with the meeting they belong to, and are removed by both of the options described below.</p>
-      <p>You can change or revoke microphone and speech recognition access at any time in the Settings app on iPhone and iPad, or in System Settings under Privacy and Security on a Mac.</p>
+  </main>
 
-      <h2>Data deletion</h2>
-      <p>To delete your data, open Minuted's Settings and use either "Delete all meeting history," which clears your meetings and leaves your roster in place, or "Reset everything," which clears both. Because your data syncs, deleting it removes it from your other devices as well.</p>
-      <p>Deleting the app from all of your devices also removes the data associated with it.</p>
-
-      <h2>iCloud sync</h2>
-      <p>Minuted uses Apple's CloudKit to sync your roster and meeting history across the devices signed in to your iCloud account: your iPhone, iPad, Mac, and Apple Watch. When you are signed in to iCloud, this happens automatically and keeps your data the same on each device.</p>
-      <p>Your data is stored in the private database of your personal iCloud account, encrypted and tied to your Apple ID. KSQ Studios runs no servers of its own, cannot access your iCloud data, and never receives a copy of it. If you sign out of iCloud, Minuted keeps working with the data already on your device.</p>
-      <p>If you also have iCloud Backup enabled, Apple may include Minuted's local data in your device backup per your iCloud settings. That backup is likewise encrypted under your Apple ID and is not accessible to the developer of Minuted.</p>
-
-      <h2>Children's privacy</h2>
-      <p>Minuted is not directed at children under 13 and does not knowingly collect any information from children.</p>
-
-      <h2>About this site</h2>
-      <p>The minuted.org website collects nothing. No analytics, no cookies, no third-party scripts. The app itself contains no analytics either.</p>
-
-      <h2>Changes to this policy</h2>
-      <p>If this policy changes materially, an updated version will be posted here with a revised date.</p>
-
-      <h2>Contact</h2>
-      <p>Questions or concerns about this privacy policy can be directed to the email address listed on the <a href="/support">support page</a>.</p>
-
-    </div>
-  </article>
-
-  <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <a href="/" class="logo">
-            <div class="logo-mark"></div>
-            <span>Minuted</span>
-          </a>
-          <p>See what your meetings actually cost. Live, in dollars, as they happen. An app from <a href="https://ksqstudios.com" style="color:rgba(253,252,255,0.95);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;">KSQ Studios</a>.</p>
-        </div>
-
-        <div class="footer-col">
-          <h4>Product</h4>
-          <a href="/#what">What it does</a>
-          <a href="/#showcase">See it</a>
-          <a href="/">Home</a>
-        </div>
-
-        <div class="footer-col">
-          <h4>Resources</h4>
-          <a href="/privacy">Privacy policy</a>
-          <a href="/support">Support</a>
-          <a href="mailto:techsupport@ksqstudios.com">Contact</a>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div>© 2026 KSQ Studios LLC · Minuted</div>
-        <div>Made with care in Pennsylvania</div>
-      </div>
+  <footer class="foot">
+    <div class="foot-inner">
+      <nav aria-label="Footer">
+        <a href="/">Minuted</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/support">Support</a>
+        <a href="mailto:techsupport@ksqstudios.com">techsupport@ksqstudios.com</a>
+        <a href="https://ksqstudios.com">KSQ Studios</a>
+      </nav>
+      <p>Minuted is designed, built, and supported by one person, Kurt Klein, in Berwyn, Pennsylvania, under KSQ Studios. 2026.</p>
     </div>
   </footer>
 

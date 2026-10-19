@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Minuted shows you the real cost of your meetings, live, in dollars, as they happen.">
-  <title>Minuted — The cost of this meeting</title>
+  <title>Minuted, the cost of this meeting</title>
+  <meta name="theme-color" content="#cfdcef">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-  <!-- Open Graph / social sharing -->
   <meta property="og:title" content="Minuted">
   <meta property="og:description" content="See what your meetings actually cost. Live, in dollars, as they happen.">
   <meta property="og:type" content="website">
@@ -23,7 +22,6 @@
 
   <link rel="canonical" href="https://minuted.org">
 
-  <!-- Structured data for Google rich results -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -45,9 +43,11 @@
       "https://minuted.org/screenshots/meeting-warning.png",
       "https://minuted.org/screenshots/meeting-alarm.png",
       "https://minuted.org/screenshots/meeting-notes.png",
+      "https://minuted.org/screenshots/share-card.png",
       "https://minuted.org/screenshots/trends-quarter.png",
       "https://minuted.org/screenshots/trends-category.png",
-      "https://minuted.org/screenshots/sync-devices.png"
+      "https://minuted.org/screenshots/sync-devices.png",
+      "https://minuted.org/screenshots/duo-meeting.png"
     ],
     "author": {
       "@type": "Organization",
@@ -57,1150 +57,408 @@
   }
   </script>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-
-  <style>
-    :root {
-      /* Color system — anchored on purple, with full Minuted gradient */
-      --color-blue: #378ADD;
-      --color-purple: #7F77DD;
-      --color-coral: #D85A30;
-      --color-ink: #0E0B1E;
-      --color-ink-soft: #2A2640;
-      --color-mist: #F7F4FB;
-      --color-paper: #FDFCFF;
-      --color-border: rgba(14, 11, 30, 0.08);
-
-      /* The signature Minuted gradient */
-      --gradient-meeting: linear-gradient(135deg, #378ADD 0%, #7F77DD 45%, #D85A30 100%);
-      --gradient-soft: linear-gradient(135deg, #E5EEFB 0%, #EBE8FA 45%, #FBE3D9 100%);
-
-      /* Typography */
-      --font-display: 'Fraunces', Georgia, serif;
-      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-
-      /* Spacing */
-      --container: 1200px;
-      --container-narrow: 780px;
-    }
-
-    * { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: var(--font-body);
-      font-size: 17px;
-      line-height: 1.6;
-      color: var(--color-ink);
-      background: var(--color-paper);
-      overflow-x: hidden;
-    }
-
-    /* Typography scale */
-    h1, h2, h3, h4 {
-      font-family: var(--font-display);
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-      margin: 0;
-    }
-
-    h1 {
-      font-size: clamp(2.8rem, 7vw, 6rem);
-      font-variation-settings: "opsz" 144, "SOFT" 50;
-    }
-
-    h2 {
-      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
-      font-variation-settings: "opsz" 100;
-    }
-
-    h3 {
-      font-size: clamp(1.3rem, 2vw, 1.65rem);
-      font-family: var(--font-body);
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-    }
-
-    p { margin: 0 0 1em; }
-
-    a {
-      color: var(--color-purple);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-
-    a:hover { color: var(--color-coral); }
-
-    .container {
-      max-width: var(--container);
-      margin: 0 auto;
-      padding: 0 clamp(20px, 5vw, 40px);
-    }
-
-    .container-narrow {
-      max-width: var(--container-narrow);
-      margin: 0 auto;
-      padding: 0 clamp(20px, 5vw, 40px);
-    }
-
-    /* Nav */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 1.25rem 0;
-      background: rgba(253, 252, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      font-weight: 500;
-      color: var(--color-ink);
-      letter-spacing: -0.02em;
-    }
-
-    .logo-mark {
-      width: 28px;
-      height: 28px;
-      background: var(--gradient-meeting);
-      border-radius: 8px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .logo-mark::after {
-      content: '';
-      position: absolute;
-      top: 6px;
-      right: 6px;
-      width: 6px;
-      height: 6px;
-      background: #FF3B30;
-      border-radius: 50%;
-      box-shadow: 0 0 6px rgba(255, 59, 48, 0.6);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-      font-size: 0.95rem;
-    }
-
-    .nav-links a {
-      color: var(--color-ink-soft);
-      font-weight: 500;
-    }
-
-    .nav-cta {
-      background: var(--color-ink);
-      color: white !important;
-      padding: 0.55rem 1.1rem;
-      border-radius: 100px;
-      font-size: 0.9rem;
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    .nav-cta:hover {
-      background: var(--color-purple);
-      transform: translateY(-1px);
-      color: white !important;
-    }
-
-    @media (max-width: 640px) {
-      .nav-links a:not(.nav-cta) { display: none; }
-    }
-
-    /* Hero */
-    .hero {
-      padding: clamp(8rem, 15vh, 12rem) 0 clamp(4rem, 10vh, 8rem);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -20%;
-      right: -10%;
-      width: 70%;
-      height: 120%;
-      background: var(--gradient-meeting);
-      opacity: 0.08;
-      filter: blur(120px);
-      z-index: -1;
-      animation: drift 20s ease-in-out infinite;
-    }
-
-    @keyframes drift {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(-5%, 3%) scale(1.05); }
-    }
-
-    .hero-eyebrow {
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-purple);
-      margin-bottom: 2rem;
-    }
-
-    .hero h1 {
-      max-width: 14ch;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      background: var(--gradient-meeting);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-variation-settings: "opsz" 144, "SOFT" 100;
-    }
-
-    .hero-sub {
-      max-width: 54ch;
-      font-size: clamp(1.1rem, 1.5vw, 1.3rem);
-      color: var(--color-ink-soft);
-      margin-top: 2rem;
-      line-height: 1.5;
-    }
-
-    .hero-ctas {
-      display: flex;
-      gap: 1rem;
-      margin-top: 3rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      background: var(--color-ink);
-      color: white !important;
-      padding: 0.9rem 1.6rem;
-      border-radius: 100px;
-      font-weight: 500;
-      font-size: 1rem;
-      transition: transform 0.2s ease, background 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--gradient-meeting);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      color: white !important;
-    }
-
-    .btn-primary:hover::before {
-      opacity: 1;
-    }
-
-    .btn-primary span {
-      position: relative;
-      z-index: 1;
-    }
-
-    .price-tag {
-      font-size: 0.9rem;
-      color: var(--color-ink-soft);
-      font-weight: 500;
-    }
-
-    .price-tag strong {
-      color: var(--color-ink);
-      font-weight: 600;
-    }
-
-    /* Section spacing */
-    section {
-      padding: clamp(4rem, 10vh, 8rem) 0;
-    }
-
-    .section-eyebrow {
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--color-purple);
-      margin-bottom: 1rem;
-    }
-
-    /* The pitch */
-    .pitch {
-      background: var(--color-mist);
-      position: relative;
-    }
-
-    .pitch-lead {
-      font-family: var(--font-display);
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      line-height: 1.3;
-      color: var(--color-ink);
-      letter-spacing: -0.01em;
-      font-variation-settings: "opsz" 100;
-    }
-
-    .pitch-lead em {
-      font-style: italic;
-      color: var(--color-coral);
-    }
-
-    /* Features */
-    .features {
-      position: relative;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: clamp(1.5rem, 3vw, 2.5rem);
-      margin-top: 3rem;
-    }
-
-    .feature {
-      padding: 2rem;
-      background: white;
-      border: 1px solid var(--color-border);
-      border-radius: 20px;
-      transition: transform 0.3s ease, border-color 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .feature:hover {
-      transform: translateY(-4px);
-      border-color: var(--color-purple);
-    }
-
-    .feature-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-      background: var(--gradient-soft);
-      color: var(--color-purple);
-    }
-
-    .feature h3 {
-      margin-bottom: 0.5rem;
-    }
-
-    .feature p {
-      color: var(--color-ink-soft);
-      font-size: 0.95rem;
-      margin: 0;
-    }
-
-    /* Screenshots showcase */
-    .showcase {
-      background: linear-gradient(180deg, var(--color-paper) 0%, var(--color-mist) 100%);
-    }
-
-    .showcase-intro {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: end;
-      margin-bottom: 4rem;
-    }
-
-    @media (max-width: 768px) {
-      .showcase-intro {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-    }
-
-    .showcase-intro p {
-      color: var(--color-ink-soft);
-      font-size: 1.05rem;
-    }
-
-    .phone-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: clamp(1.5rem, 3vw, 3rem);
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .phone-frame {
-      aspect-ratio: 9 / 19.5;
-      background: var(--color-ink);
-      border-radius: 38px;
-      padding: 8px;
-      box-shadow:
-        0 30px 60px -15px rgba(14, 11, 30, 0.25),
-        0 10px 30px -10px rgba(14, 11, 30, 0.15);
-      position: relative;
-      transition: transform 0.4s ease;
-    }
-
-    .phone-frame:hover {
-      transform: translateY(-8px);
-    }
-
-    .phone-screen {
-      width: 100%;
-      height: 100%;
-      border-radius: 30px;
-      overflow: hidden;
-      position: relative;
-      background: var(--gradient-soft);
-      display: block;
-    }
-
-    img.phone-screen {
-      object-fit: cover;
-      object-position: center;
-    }
-
-    .phone-caption {
-      text-align: center;
-      margin-top: 1.5rem;
-      font-size: 0.92rem;
-      color: var(--color-ink-soft);
-      font-weight: 500;
-      max-width: 22ch;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.4;
-    }
-
-    .continuity {
-      max-width: 1000px;
-      margin: clamp(2.5rem, 5vw, 4rem) auto 0;
-      text-align: center;
-    }
-    .continuity-img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .continuity .phone-caption {
-      max-width: 34ch;
-    }
-
-    /* Philosophy */
-    .philosophy {
-      background: var(--color-ink);
-      color: var(--color-paper);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .philosophy::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      height: 150%;
-      background: var(--gradient-meeting);
-      opacity: 0.12;
-      filter: blur(100px);
-      z-index: 0;
-    }
-
-    .philosophy .container-narrow {
-      position: relative;
-      z-index: 1;
-    }
-
-    .philosophy h2 {
-      color: var(--color-paper);
-    }
-
-    .philosophy-lead {
-      font-family: var(--font-display);
-      font-size: clamp(1.4rem, 2.5vw, 2rem);
-      line-height: 1.4;
-      color: var(--color-paper);
-      font-variation-settings: "opsz" 100;
-      margin-top: 2rem;
-      letter-spacing: -0.01em;
-    }
-
-    .philosophy-lead em {
-      font-style: italic;
-      color: var(--color-coral);
-    }
-
-    .philosophy-points {
-      margin-top: 3rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-    }
-
-    .philosophy-point {
-      border-left: 2px solid var(--color-purple);
-      padding-left: 1.25rem;
-    }
-
-    .philosophy-point strong {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-weight: 500;
-      display: block;
-      margin-bottom: 0.4rem;
-      color: var(--color-paper);
-    }
-
-    .philosophy-point p {
-      margin: 0;
-      font-size: 0.92rem;
-      color: rgba(253, 252, 255, 0.7);
-    }
-
-    /* Maker */
-    .maker {
-      background: var(--color-paper);
-    }
-
-    .maker-content {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 4rem;
-      align-items: start;
-    }
-
-    @media (max-width: 768px) {
-      .maker-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-    }
-
-    .maker-label {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-style: italic;
-      color: var(--color-ink-soft);
-      font-variation-settings: "opsz" 100;
-    }
-
-    .maker-text p {
-      font-size: 1.05rem;
-      color: var(--color-ink-soft);
-      line-height: 1.7;
-    }
-
-    .maker-text p:first-child::first-letter {
-      font-family: var(--font-display);
-      font-size: 3.5em;
-      font-weight: 400;
-      float: left;
-      line-height: 0.85;
-      margin: 0.05em 0.1em 0 0;
-      color: var(--color-coral);
-    }
-
-    /* CTA band */
-    .cta-band {
-      position: relative;
-      padding: clamp(5rem, 12vh, 9rem) 0;
-      text-align: center;
-      background: var(--gradient-meeting);
-      color: white;
-      overflow: hidden;
-    }
-
-    .cta-band::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.15) 0%, transparent 50%);
-      z-index: 0;
-    }
-
-    .cta-band-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .cta-band h2 {
-      color: white;
-      max-width: 16ch;
-      margin: 0 auto 2rem;
-    }
-
-    .cta-band h2 em {
-      font-style: italic;
-      color: rgba(255, 255, 255, 0.85);
-    }
-
-    .btn-white {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      background: white;
-      color: var(--color-ink) !important;
-      padding: 1rem 1.8rem;
-      border-radius: 100px;
-      font-weight: 500;
-      font-size: 1.05rem;
-      transition: transform 0.2s ease;
-    }
-
-    .btn-white:hover {
-      transform: translateY(-2px);
-      color: var(--color-ink) !important;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--color-ink);
-      color: rgba(253, 252, 255, 0.7);
-      padding: 4rem 0 2rem;
-      font-size: 0.9rem;
-    }
-
-    .footer-inner {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 3rem;
-      margin-bottom: 3rem;
-    }
-
-    @media (max-width: 768px) {
-      .footer-inner {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-    }
-
-    .footer-brand {
-      max-width: 320px;
-    }
-
-    .footer-brand .logo {
-      color: var(--color-paper);
-      margin-bottom: 1rem;
-    }
-
-    .footer-brand p {
-      font-size: 0.9rem;
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    .footer-col h4 {
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-paper);
-      margin: 0 0 1rem;
-    }
-
-    .footer-col a {
-      display: block;
-      color: rgba(253, 252, 255, 0.7);
-      margin-bottom: 0.5rem;
-    }
-
-    .footer-col a:hover {
-      color: var(--color-paper);
-    }
-
-    .footer-bottom {
-      padding-top: 2rem;
-      border-top: 1px solid rgba(253, 252, 255, 0.08);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      font-size: 0.85rem;
-    }
-
-    /* ─────────────────────────────────────────────────────
-       Scroll reveal animations
-       Subtle fade + upward slide as elements enter viewport.
-       Respects prefers-reduced-motion.
-       ───────────────────────────────────────────────────── */
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition:
-        opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
-        transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
-      will-change: opacity, transform;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Staggered children — each child animates with an increasing delay */
-    .reveal-stagger > * {
-      opacity: 0;
-      transform: translateY(24px);
-      transition:
-        opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
-        transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
-      will-change: opacity, transform;
-    }
-
-    .reveal-stagger.visible > *:nth-child(1)  { transition-delay: 0.05s; opacity: 1; transform: translateY(0); }
-    .reveal-stagger.visible > *:nth-child(2)  { transition-delay: 0.12s; opacity: 1; transform: translateY(0); }
-    .reveal-stagger.visible > *:nth-child(3)  { transition-delay: 0.19s; opacity: 1; transform: translateY(0); }
-    .reveal-stagger.visible > *:nth-child(4)  { transition-delay: 0.26s; opacity: 1; transform: translateY(0); }
-    .reveal-stagger.visible > *:nth-child(5)  { transition-delay: 0.33s; opacity: 1; transform: translateY(0); }
-    .reveal-stagger.visible > *:nth-child(6)  { transition-delay: 0.40s; opacity: 1; transform: translateY(0); }
-    .reveal-stagger.visible > *:nth-child(7)  { transition-delay: 0.47s; opacity: 1; transform: translateY(0); }
-    .reveal-stagger.visible > *:nth-child(8)  { transition-delay: 0.54s; opacity: 1; transform: translateY(0); }
-    /* Catch-all so the grid can grow without cards silently staying invisible.
-       Delay is capped here rather than climbing per card, which would leave the
-       last one crawling in well after the user has scrolled past it. */
-    .reveal-stagger.visible > *:nth-child(n+9) { transition-delay: 0.60s; opacity: 1; transform: translateY(0); }
-
-    /* Reduce motion — respect the user's system setting.
-       When enabled, content appears instantly with no animation. */
-    @media (prefers-reduced-motion: reduce) {
-      .reveal,
-      .reveal-stagger > * {
-        opacity: 1 !important;
-        transform: none !important;
-        transition: none !important;
-      }
-    }
-
-    /* No-JS fallback — if JavaScript is disabled, show everything
-       immediately so content isn't invisible. */
-    .no-js .reveal,
-    .no-js .reveal-stagger > * {
-      opacity: 1;
-      transform: none;
-    }
-  </style>
-  <script>
-    // Remove no-js class early (inline, before body renders) so we don't
-    // see a flash of "everything visible" before the JS observer kicks in.
-    document.documentElement.classList.remove('no-js');
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 
-  <nav>
-    <div class="container">
-      <div class="nav-inner">
-        <a href="/" class="logo">
-          <div class="logo-mark"></div>
-          <span>Minuted</span>
-        </a>
-        <div class="nav-links">
-          <a href="#what">What it does</a>
-          <a href="#showcase">See it</a>
-          <a href="#maker">The maker</a>
-          <a href="https://apps.apple.com/us/app/minuted/id6764897137" class="nav-cta" target="_blank" rel="noopener">Get the app</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <header class="hero">
-    <div class="container">
-      <div class="hero-eyebrow">For iPhone, iPad, Mac, and Apple Watch</div>
-      <h1>Every meeting has a <em>price tag.</em></h1>
-      <p class="hero-sub">Minuted shows you, live, what your meeting actually costs. The number climbs as you talk. The background shifts from calm blue to alarming coral. You stop before it gets ridiculous.</p>
-      <div class="hero-ctas">
-        <a href="https://apps.apple.com/us/app/minuted/id6764897137" class="btn-primary" target="_blank" rel="noopener">
-          <span>Download on the App Store</span>
-        </a>
-        <span class="price-tag"><strong>Free</strong> · No subscriptions · Private, syncs via iCloud</span>
-      </div>
+  <header class="bar">
+    <div class="bar-inner">
+      <a class="mark" href="/">
+        <img src="/apple-touch-icon.png" alt="" width="30" height="30">
+        Minuted
+      </a>
+      <nav aria-label="Site">
+        <a href="/support">Support</a>
+        <a class="bar-cta" href="https://apps.apple.com/us/app/minuted/id6764897137" rel="noopener">Get the app</a>
+      </nav>
     </div>
   </header>
 
-  <section class="pitch" id="what">
-    <div class="container-narrow reveal">
-      <div class="section-eyebrow">The idea</div>
-      <p class="pitch-lead">Most meeting tools assume your time is free. It isn't. A one-hour sync with four senior people can cost <em>more than dinner for eight.</em> Minuted turns that invisible cost into something you can feel — a number on your screen, climbing with every minute you stay in the room.</p>
-    </div>
-  </section>
+  <main>
 
-  <section class="features">
-    <div class="container">
-      <div class="reveal">
-        <div class="section-eyebrow">What it does</div>
-        <h2>Designed around the <em style="font-style:italic;color:var(--color-purple)">live number.</em></h2>
+    <!-- The meter. The band's colour follows the running cost, from calm blue
+         through lilac to coral, the way the app's background does. -->
+    <section class="meter" id="meter" aria-labelledby="meter-title">
+      <div class="meter-inner">
+        <div class="meter-top">
+          <h1 id="meter-title">Every meeting has a price tag.</h1>
+          <div class="meter-pitch">
+            <p>
+              Minuted shows you, live, what your meeting actually costs. The
+              number climbs as you talk. The background shifts from calm blue
+              to alarming coral. You stop before it gets ridiculous.
+            </p>
+            <p class="buy">
+              <a class="button" href="https://apps.apple.com/us/app/minuted/id6764897137" rel="noopener">Download on the App Store</a>
+              <span>Free on iPhone, iPad, Mac and Apple Watch. No subscription.</span>
+            </p>
+          </div>
+        </div>
+
+        <p class="meter-label" id="meter-label">This meeting started a few minutes before you arrived. So far it has cost</p>
+        <p class="meter-figure" aria-describedby="meter-label"><span id="meter-dollars">$0</span><span class="meter-cents" id="meter-cents">.00</span></p>
+
+        <p class="meter-warning" id="meter-warning" role="status" hidden></p>
+
+        <div class="share" id="share" hidden>
+          <div class="share-card">
+            <p class="share-brand">Minuted</p>
+            <p class="share-title">The cost of this meeting</p>
+            <p class="share-total" id="share-total">$0</p>
+            <dl class="share-stats">
+              <div><dt>Duration</dt><dd id="share-elapsed">0:00</dd></div>
+              <div><dt>People</dt><dd id="share-people">8</dd></div>
+            </dl>
+          </div>
+          <div class="share-side">
+            <p>That is the card Minuted hands you when a meeting ends, ready to share.</p>
+            <button type="button" class="skip" id="restart">Start a new meeting</button>
+          </div>
+        </div>
+
+        <div class="meter-panel">
+          <dl class="meter-stats">
+            <div><dt>Elapsed</dt><dd id="meter-elapsed">0:00</dd></div>
+            <div><dt>Per minute</dt><dd id="meter-rate">$12.67</dd></div>
+            <div><dt>People</dt><dd id="meter-people-stat">8</dd></div>
+          </dl>
+
+          <div class="meter-controls">
+            <div class="stepper" role="group" aria-labelledby="people-label">
+              <span class="stepper-label" id="people-label">People in the room</span>
+              <button type="button" id="people-down" aria-label="One fewer person">&minus;</button>
+              <output id="people" aria-live="polite">8</output>
+              <button type="button" id="people-up" aria-label="One more person">+</button>
+            </div>
+            <div class="stepper" role="group" aria-labelledby="rate-label">
+              <span class="stepper-label" id="rate-label">Average hourly rate</span>
+              <button type="button" id="rate-down" aria-label="Lower the rate by five dollars">&minus;</button>
+              <output id="rate" aria-live="polite">$95</output>
+              <button type="button" id="rate-up" aria-label="Raise the rate by five dollars">+</button>
+            </div>
+            <button type="button" class="skip" id="skip">Run fifteen minutes long</button>
+            <button type="button" class="stop" id="stop">Stop meeting</button>
+          </div>
+        </div>
+
       </div>
-      <div class="features-grid reveal-stagger">
+    </section>
 
-        <div class="feature">
-          <div class="feature-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="6" x2="12" y2="12"></line>
-              <line x1="12" y1="12" x2="16" y2="14"></line>
-            </svg>
-          </div>
-          <h3>Live cost, in dollars</h3>
-          <p>The big number on your screen updates every frame. No watching a timer and doing math in your head — the cost is right there.</p>
+    <section class="idea">
+      <p>
+        Most meeting tools assume your time is free. It isn't. A one-hour sync
+        with four senior people can cost more than dinner for eight. Minuted
+        turns that invisible cost into something you can feel: a number on
+        your screen, climbing with every minute you stay in the room.
+      </p>
+    </section>
+
+    <section class="calm" aria-labelledby="calm-title">
+      <div class="calm-inner">
+        <h2 id="calm-title">Quiet until it shouldn't be</h2>
+        <p class="calm-lede">
+          Most meetings stay in the cool blue range and you barely notice the
+          app is there. Then something drags on, the gradient starts to warm,
+          and you remember why you installed it.
+        </p>
+        <div class="calm-shots">
+          <figure>
+            <img src="/screenshots/meeting-cool.png" alt="A Design Strategy meeting in Minuted two minutes in: $61.20 on a calm blue background, five people at $27.17 a minute." width="1320" height="2868" loading="lazy">
+            <figcaption>Two minutes in. Five people, $27.17 a minute, just a number quietly counting.</figcaption>
+          </figure>
+          <figure>
+            <img src="/screenshots/meeting-warning.png" alt="Minuted showing a cost warning banner as a meeting passes $100." width="1320" height="2868" loading="lazy">
+            <figcaption>$100 comes up faster than you'd think. Minuted taps you on the shoulder.</figcaption>
+          </figure>
+          <figure>
+            <img src="/screenshots/meeting-alarm.png" alt="The Bi-Annual Company Meeting in Minuted at $1,144.10 on a warm coral background, fifteen people at $80.25 a minute." width="1320" height="2868" loading="lazy">
+            <figcaption>The company meeting, fourteen minutes in. Fifteen people, $80.25 a minute.</figcaption>
+          </figure>
         </div>
+      </div>
+    </section>
 
-        <div class="feature">
-          <div class="feature-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 12h3l3-9 4 18 3-9h5"></path>
-            </svg>
-          </div>
-          <h3>The background reacts</h3>
-          <p>Start calm. A gradient shifts from cool blue through purple to urgent coral as the cost rises. Your phone knows when it's getting bad.</p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-            </svg>
-          </div>
-          <h3>Alerts when it matters</h3>
-          <p>Pick thresholds — say, $250 for a warning and $750 for an alarm. Minuted taps you on the wrist when a meeting crosses into "why are we still here" territory.</p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="16" y1="2" x2="16" y2="6"></line>
-              <line x1="8" y1="2" x2="8" y2="6"></line>
-              <line x1="3" y1="10" x2="21" y2="10"></line>
-            </svg>
-          </div>
-          <h3>History worth reading</h3>
-          <p>Every meeting, saved. Week over week you see where the money actually goes — which meetings are quick and useful, which are slowly bleeding you.</p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-              <line x1="12" y1="18" x2="12" y2="18"></line>
-            </svg>
-          </div>
-          <h3>Home screen widgets</h3>
-          <p>Keep this week's meeting spend where you can glance at it. Small and medium sizes; no need to open the app to know how much you've lost this week.</p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-              <polyline points="16 6 12 2 8 6"></polyline>
-              <line x1="12" y1="2" x2="12" y2="15"></line>
-            </svg>
-          </div>
-          <h3>Shareable summaries</h3>
-          <p>Finish a meeting, get a beautiful card with the total. Drop it into Slack, iMessage, a performance review — wherever the conversation needs to happen.</p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="16" y1="2" x2="16" y2="6"></line>
-              <line x1="8" y1="2" x2="8" y2="6"></line>
-              <line x1="3" y1="10" x2="21" y2="10"></line>
-              <path d="M8 14h.01"></path>
-              <path d="M12 14h.01"></path>
-            </svg>
-          </div>
+    <section class="agenda" aria-labelledby="agenda-title">
+      <div class="agenda-head">
+        <h2 id="agenda-title">Agenda</h2>
+        <p>Everything Minuted does, in the order you meet it.</p>
+      </div>
+      <ol class="agenda-list" id="agenda-list">
+        <li>
+          <h3>Build your roster</h3>
+          <p>Add the people you meet with and their hourly rate, or their salary and let Minuted work out the hour.</p>
+        </li>
+        <li>
           <h3>Start from your calendar</h3>
           <p>Minuted shows what is still left on your calendar today. Tap an event and the title fills in and the invitees are matched to your roster. Read-only, and entirely optional.</p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 3v18h18"></path>
-              <rect x="7" y="12" width="3" height="6"></rect>
-              <rect x="13" y="8" width="3" height="10"></rect>
-              <rect x="19" y="14" width="2" height="4"></rect>
-            </svg>
-          </div>
-          <h3>Trends, by category</h3>
-          <p>Tag meetings as standups, reviews, one-on-ones. Trends shows spend by week, month, or quarter, which categories eat the most, and what you marked as not worth it.</p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="8" y1="13" x2="14" y2="13"></line>
-              <line x1="8" y1="17" x2="16" y2="17"></line>
-            </svg>
-          </div>
-          <h3>Notes worth keeping</h3>
-          <p>Record a meeting and get structured notes back: what was decided, what was assigned, what actually mattered. Written by Apple Intelligence, on your device or with Apple's Private Cloud Compute. Nothing ever reaches us. A one-time unlock on devices with Apple Intelligence.</p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="7"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              <path d="M11 8v6"></path>
-              <path d="M8 11h6"></path>
-            </svg>
-          </div>
+        </li>
+        <li>
+          <h3>Watch the live cost, in dollars</h3>
+          <p>The number on your screen updates every frame. No watching a timer and doing math in your head.</p>
+        </li>
+        <li>
+          <h3>Feel the background react</h3>
+          <p>A gradient shifts from cool blue through purple to urgent coral as the cost rises.</p>
+        </li>
+        <li>
+          <h3>Get an alert when it matters</h3>
+          <p>Pick thresholds, say $250 for a warning and $750 for an alarm, and Minuted taps you on the wrist when a meeting crosses them.</p>
+        </li>
+        <li>
           <h3>Ask Siri, or just search</h3>
-          <p>Ask what you have spent on meetings this week. Find a past meeting from Spotlight. Start a Quick Meeting by voice, from Shortcuts, or straight from your watch.</p>
-        </div>
+          <p>Ask what you have spent on meetings this week. Find a past meeting from Spotlight. Start a Quick Meeting by voice, from Shortcuts, or from your watch.</p>
+        </li>
+        <li>
+          <h3>Keep the minutes</h3>
+          <p>Record a meeting and get structured notes back: what was decided, what was assigned, what actually mattered.</p>
+        </li>
+        <li>
+          <h3>Share the total</h3>
+          <p>Finish a meeting and get a card with the total, ready for Slack, Messages, or the next planning conversation.</p>
+        </li>
+        <li>
+          <h3>Read the history</h3>
+          <p>Every meeting is saved and tagged as a standup, a review, a one-on-one. Trends shows spend by week, month or quarter, and what you marked as not worth it.</p>
+        </li>
+        <li>
+          <h3>Glance at the week</h3>
+          <p>Home screen widgets keep this week's meeting spend in view, in small and medium sizes.</p>
+        </li>
+      </ol>
+    </section>
 
-        <div class="feature">
-          <div class="feature-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
-              <path d="M21 3v5h-5"></path>
-              <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
-              <path d="M3 21v-5h5"></path>
-            </svg>
-          </div>
-          <h3>On every device</h3>
-          <p>iPhone, iPad, Mac, and Apple Watch, from one download. Start a meeting on your phone and end it from the Mac menu bar. Your roster and full history stay in step, synced through your own iCloud.</p>
-        </div>
-
+    <section class="minutes" aria-labelledby="minutes-title">
+      <div class="minutes-copy">
+        <h2 id="minutes-title">The minutes, written for you</h2>
+        <p>
+          Tap Record notes during a meeting. When it ends, the transcript
+          becomes structured notes: a summary, decisions, action items with
+          owners, and the questions still open.
+        </p>
+        <p>
+          The notes are written by Apple Intelligence, using Apple's Private
+          Cloud Compute when it is available and the model on your device
+          otherwise. Turn off Private Cloud Compute in Settings to keep
+          everything on the device. The audio never leaves it, and nothing ever
+          reaches us. Notes are a one-time unlock on devices with Apple
+          Intelligence.
+        </p>
       </div>
-    </div>
-  </section>
-
-  <section class="showcase" id="showcase">
-    <div class="container">
-      <div class="reveal">
-        <div class="section-eyebrow">In practice</div>
-        <div class="showcase-intro">
-          <h2>What it feels like to <em style="font-style:italic;color:var(--color-coral)">actually see</em> the cost.</h2>
-          <p>The app is quiet until it shouldn't be. Most meetings stay in the cool blue range and you barely notice it's there. Then something drags on, the gradient starts to warm, and you remember why you installed this in the first place.</p>
-        </div>
+      <div class="minutes-shots">
+        <img src="/screenshots/meeting-notes.png" alt="A finished meeting in Minuted with generated notes: a summary paragraph, action items with named owners, decisions, key topics and open questions." width="1320" height="2868" loading="lazy">
+        <img src="/screenshots/share-card.png" alt="The share card for the Bi-Annual Company Meeting: $1,150, fourteen minutes, fifteen people." width="1320" height="2868" loading="lazy">
       </div>
+    </section>
 
-      <div class="phone-grid reveal-stagger">
-        <div>
-          <div class="phone-frame">
-            <img src="screenshots/meeting-cool.png" alt="Minuted running at the start of a meeting, showing $60.34 on a calm blue gradient" class="phone-screen">
-          </div>
-          <p class="phone-caption">A few minutes in. Just a number, quietly counting.</p>
-        </div>
-
-        <div>
-          <div class="phone-frame">
-            <img src="screenshots/meeting-warning.png" alt="Minuted showing a cost warning banner when the meeting crosses $100" class="phone-screen">
-          </div>
-          <p class="phone-caption">$100 comes up faster than you'd think. Minuted taps you on the shoulder.</p>
-        </div>
-
-        <div>
-          <div class="phone-frame">
-            <img src="screenshots/meeting-alarm.png" alt="Minuted showing $1,779 on a warm coral gradient during an expensive company meeting" class="phone-screen">
-          </div>
-          <p class="phone-caption">The bi-annual company meeting, warming up. Seven people, $191 a minute.</p>
-        </div>
-
-        <div>
-          <div class="phone-frame">
-            <img src="screenshots/meeting-notes.png" alt="A finished meeting in Minuted showing generated notes: a summary paragraph, action items with named owners, decisions, key topics, and open questions, above the per-attendee cost breakdown" class="phone-screen">
-          </div>
-          <p class="phone-caption">What was decided, what was assigned. Written on the phone, after everyone left.</p>
-        </div>
-
-        <div>
-          <div class="phone-frame">
-            <img src="screenshots/trends-quarter.png" alt="The Trends screen in Minuted showing $77,431 across 111 meetings for the quarter, with $15,207 of it on meetings rated not worth it" class="phone-screen">
-          </div>
-          <p class="phone-caption">Three months in. $15,207 of it on meetings you said were not worth it.</p>
-        </div>
-
-        <div>
-          <div class="phone-frame">
-            <img src="screenshots/trends-category.png" alt="The Trends screen in Minuted showing spend over twelve weeks as a bar chart, and a donut chart breaking the quarter down by category with reviews, planning, one-on-ones and standups listed with totals" class="phone-screen">
-          </div>
-          <p class="phone-caption">Where it actually went. Thirty-three standups, twenty-two reviews, priced.</p>
-        </div>
+    <section class="quarter" aria-labelledby="quarter-title">
+      <div class="quarter-copy">
+        <h2 id="quarter-title">A quarter, priced</h2>
+        <p class="quarter-figure" id="quarter-figure">$14,336</p>
+        <div class="quarter-bar" aria-hidden="true"><span id="quarter-fill"></span></div>
+        <p class="quarter-note">
+          on twenty-two meetings rated not worth it, out of $72,801 across 111
+          meetings in a quarter. Trends breaks it down by week and by
+          category, so you can see which standups and reviews earn their time.
+        </p>
       </div>
-
-      <div class="continuity reveal">
-        <img src="screenshots/sync-devices.png" alt="The same Minuted meeting open on an iPhone and an iPad side by side, both showing the identical running total, demonstrating iCloud sync across devices" class="continuity-img">
-        <p class="phone-caption">Started on your iPhone, already on your iPad. The same meeting and the same running total, carried over through your own iCloud.</p>
+      <div class="quarter-shots">
+        <img src="/screenshots/trends-quarter.png" alt="The Trends screen showing $72,801 across 111 meetings for the quarter, with $14,336 on meetings rated not worth it." width="1320" height="2868" loading="lazy">
+        <img src="/screenshots/trends-category.png" alt="Trends showing spend over twelve weeks as a bar chart and the quarter broken down by category." width="1320" height="2868" loading="lazy">
       </div>
+    </section>
 
-    </div>
-  </section>
-
-  <section class="philosophy">
-    <div class="container-narrow">
-      <div class="reveal">
-        <div class="section-eyebrow" style="color:var(--color-purple)">The approach</div>
-        <h2>Built to respect your time <em style="font-style:italic;color:var(--color-coral)">and your data.</em></h2>
-        <p class="philosophy-lead">Minuted has no account to create and no servers of ours. Your meetings sync across your devices through your own private iCloud, and reach no one else. No "anonymized analytics" of how you meet, no tracking. The data stays yours.</p>
-      </div>
-
-      <div class="philosophy-points reveal-stagger">
-        <div class="philosophy-point">
-          <strong>Synced via iCloud</strong>
-          <p>Your meetings sync across your devices through your private iCloud. Nothing routes through us.</p>
-        </div>
-        <div class="philosophy-point">
-          <strong>No subscription</strong>
-          <p>Free to use. Meeting notes are a single one-time unlock. No ads, ever.</p>
-        </div>
-        <div class="philosophy-point">
-          <strong>No ads</strong>
-          <p>You paid. You don't owe us anything more than that.</p>
-        </div>
-        <div class="philosophy-point">
-          <strong>No account</strong>
-          <p>Download, start using. That's it.</p>
+    <section class="devices" aria-labelledby="devices-title">
+      <h2 id="devices-title">One meeting, every device</h2>
+      <p class="devices-lede">
+        iPhone, iPad, Mac and Apple Watch, from one download. Start a meeting
+        on your phone and end it from the Mac menu bar. Your roster and full
+        history stay in step through your own iCloud.
+      </p>
+      <figure class="devices-sync">
+        <img src="/screenshots/sync-devices.png" alt="The same All-hands meeting open on an iPhone and an iPad, both showing $4,815.00." width="3207" height="1860" loading="lazy">
+        <figcaption>Started on your iPhone, already on your iPad. The same meeting and the same total.</figcaption>
+      </figure>
+      <div class="duo">
+        <img src="/screenshots/duo-meeting.png" alt="Minuted on the unfolded iPhone Duo: the roster on the left, a Weekly Planning Meeting running at $61.67 on the right." width="1346" height="944" loading="lazy">
+        <div class="duo-copy">
+          <h3>Unfold the whole meeting</h3>
+          <p>On iPhone Duo, the inner display shows the full iPad layout, with your roster beside the running cost.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="maker" id="maker">
-    <div class="container">
-      <div class="section-eyebrow">About the maker</div>
-      <div class="maker-content reveal">
-        <div class="maker-label">Made by one person, on purpose.</div>
-        <div class="maker-text">
-          <p>Minuted is made by Kurt Klein — a person who sat in one too many meetings wondering what they were actually costing the company. The first version was a spreadsheet. This is what it grew into.</p>
-          <p>It's published under <a href="https://ksqstudios.com" target="_blank" rel="noopener">KSQ Studios</a>, a one-person software studio in Pennsylvania. No team, no venture funding, no roadmap dictated by someone else. Just an app I built because I wanted it to exist, and thought maybe you would too.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    <section class="terms" aria-labelledby="terms-title">
+      <h2 id="terms-title">The terms</h2>
+      <dl>
+        <div><dt>Price</dt><dd>Free. Meeting notes are a single one-time unlock. No subscription.</dd></div>
+        <div><dt>Account</dt><dd>None. Download and start.</dd></div>
+        <div><dt>Your data</dt><dd>Synced across your devices through your private iCloud. Nothing routes through us, and we run no servers.</dd></div>
+        <div><dt>Tracking</dt><dd>None in the app and none on this site. No ads, ever.</dd></div>
+      </dl>
+      <p class="buy">
+        <a class="button" href="https://apps.apple.com/us/app/minuted/id6764897137" rel="noopener">Download on the App Store</a>
+      </p>
+    </section>
 
-  <section class="cta-band">
-    <div class="cta-band-inner container reveal">
-      <h2>Stop wondering. <em>Start seeing.</em></h2>
-      <a href="https://apps.apple.com/us/app/minuted/id6764897137" class="btn-white" target="_blank" rel="noopener">
-        <span>Download on the App Store</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
-        </svg>
-      </a>
-      <p style="margin-top:1.5rem;opacity:0.85;font-size:0.95rem">Free · iPhone, iPad, Mac, and Apple Watch</p>
-    </div>
-  </section>
+    <section class="maker">
+      <p>
+        Minuted is made by Kurt Klein, who sat in one too many meetings
+        wondering what they were costing. The first version was a spreadsheet.
+        It is published under <a href="https://ksqstudios.com">KSQ Studios</a>,
+        a one-person software studio in Pennsylvania.
+      </p>
+    </section>
 
-  <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <div class="logo">
-            <div class="logo-mark"></div>
-            <span>Minuted</span>
-          </div>
-          <p>See what your meetings actually cost. Live, in dollars, as they happen. An app from <a href="https://ksqstudios.com" style="color:rgba(253,252,255,0.95);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;">KSQ Studios</a>.</p>
-        </div>
+  </main>
 
-        <div class="footer-col">
-          <h4>Product</h4>
-          <a href="#what">What it does</a>
-          <a href="#showcase">See it</a>
-          <a href="https://apps.apple.com/us/app/minuted/id6764897137" target="_blank" rel="noopener">App Store</a>
-        </div>
-
-        <div class="footer-col">
-          <h4>Resources</h4>
-          <a href="/privacy">Privacy policy</a>
-          <a href="/support">Support</a>
-          <a href="mailto:techsupport@ksqstudios.com">Contact</a>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div>© 2026 KSQ Studios LLC · Minuted</div>
-        <div>Made with care in Pennsylvania</div>
-      </div>
+  <footer class="foot">
+    <div class="foot-inner">
+      <nav aria-label="Footer">
+        <a href="/privacy">Privacy</a>
+        <a href="/support">Support</a>
+        <a href="mailto:techsupport@ksqstudios.com">techsupport@ksqstudios.com</a>
+        <a href="https://ksqstudios.com">KSQ Studios</a>
+      </nav>
+      <p>Minuted is designed, built, and supported by one person, Kurt Klein, in Berwyn, Pennsylvania, under KSQ Studios. 2026.</p>
     </div>
   </footer>
 
   <script>
-    // Scroll reveal — observe .reveal and .reveal-stagger elements.
-    // When they enter the viewport, add .visible to trigger the CSS animation.
-    // Elements animate once and then stop observing (no re-animation on scroll-up).
+    // The meter. Cost is people times the average hourly rate, counted from
+    // the moment the page opened. Nothing is stored or sent.
+    (function () {
+      var $ = function (id) { return document.getElementById(id); };
+      var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var people = 8, rate = 95;
+      var offset = 6 * 60;         // the meeting began six minutes before the page opened; Run fifteen minutes long adds more
+      var start = performance.now();
+      var meter = $('meter');
+      var warned = 0;
 
-    (function() {
-      // Feature detection — if IntersectionObserver isn't available (very old browsers),
-      // just show everything immediately.
-      if (!('IntersectionObserver' in window)) {
-        document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
-          el.classList.add('visible');
-        });
-        return;
+      // Stage colours, light to heavy, matching the app's arc.
+      var stages = [
+        { at: 0,    a: [200, 216, 238], b: [222, 230, 244] },
+        { at: 100,  a: [214, 204, 238], b: [233, 222, 243] },
+        { at: 500,  a: [243, 182, 164], b: [247, 207, 194] },
+        { at: 1500, a: [236, 140, 121], b: [244, 178, 158] }
+      ];
+      function mix(x, y, t) { return x.map(function (v, i) { return Math.round(v + (y[i] - v) * t); }); }
+      function paint(cost) {
+        var i = 0;
+        while (i < stages.length - 2 && cost >= stages[i + 1].at) i++;
+        var s = stages[i], n = stages[i + 1];
+        var t = Math.max(0, Math.min(1, (cost - s.at) / (n.at - s.at)));
+        var a = mix(s.a, n.a, t), b = mix(s.b, n.b, t);
+        meter.style.setProperty('--stage-a', 'rgb(' + a + ')');
+        meter.style.setProperty('--stage-b', 'rgb(' + b + ')');
       }
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
+      function money(n) { return n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+      function clock(s) {
+        s = Math.floor(s);
+        var h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
+        return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + String(sec).padStart(2, '0');
+      }
+
+      function render() {
+        var seconds = (performance.now() - start) / 1000 + offset;
+        var perMinute = people * rate / 60;
+        var cost = perMinute * seconds / 60;
+        var parts = money(cost).split('.');
+        $('meter-dollars').textContent = '$' + parts[0];
+        $('meter-cents').textContent = '.' + parts[1];
+        $('meter-elapsed').textContent = clock(seconds);
+        $('meter-rate').textContent = '$' + money(perMinute);
+        paint(cost);
+        var threshold = cost >= 500 ? 500 : cost >= 100 ? 100 : 0;
+        if (threshold !== warned) {
+          warned = threshold;
+          var w = $('meter-warning');
+          w.hidden = !threshold;
+          w.textContent = threshold ? 'This meeting has crossed $' + threshold + '.' : '';
+          if (threshold && !still) {
+            w.classList.remove('is-dropping'); void w.offsetWidth; w.classList.add('is-dropping');
           }
-        });
-      }, {
-        // Trigger when element is 15% into the viewport — feels natural,
-        // content has time to animate in before the user scrolls past it.
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
+        }
+      }
+
+      var running = true;
+      function loop() { if (running) render(); requestAnimationFrame(loop); }
+      if (still) { render(); setInterval(function () { if (running) render(); }, 1000); } else { loop(); }
+
+      // Stop deals out the share card the app makes when a meeting ends.
+      $('stop').addEventListener('click', function () {
+        render();
+        running = false;
+        var seconds = (performance.now() - start) / 1000 + offset;
+        $('share-total').textContent = $('meter-dollars').textContent;
+        $('share-elapsed').textContent = clock(seconds);
+        $('share-people').textContent = people;
+        $('share').hidden = false;
+        $('stop').hidden = true;
+        $('skip').hidden = true;
+        $('meter-label').textContent = 'Meeting stopped. It cost';
+        $('meter-warning').hidden = true;
+        if (!still) { var c = $('share'); c.classList.remove('is-dealt'); void c.offsetWidth; c.classList.add('is-dealt'); }
+        $('restart').focus({ preventScroll: true });
+      });
+      $('restart').addEventListener('click', function () {
+        start = performance.now(); offset = 0; running = true; warned = -1;
+        $('share').hidden = true; $('stop').hidden = false; $('skip').hidden = false;
+        $('meter-label').textContent = 'Your new meeting has cost';
+        render();
+        $('stop').focus({ preventScroll: true });
       });
 
-      document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
-        observer.observe(el);
-      });
+      function set() {
+        $('people').textContent = people;
+        $('meter-people-stat').textContent = people;
+        $('rate').textContent = '$' + rate;
+        render();
+      }
+      $('people-down').addEventListener('click', function () { people = Math.max(2, people - 1); set(); });
+      $('people-up').addEventListener('click', function () { people = Math.min(60, people + 1); set(); });
+      $('rate-down').addEventListener('click', function () { rate = Math.max(20, rate - 5); set(); });
+      $('rate-up').addEventListener('click', function () { rate = Math.min(800, rate + 5); set(); });
+      $('skip').addEventListener('click', function () { offset += 15 * 60; render(); });
+    })();
+
+    // Two movements further down, each skipped under reduced motion.
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+
+      // The agenda is checked off item by item as you read it, like a
+      // meeting moving through its items.
+      var items = document.querySelectorAll('#agenda-list li');
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('is-covered'); io.unobserve(e.target); }
+        });
+      }, { rootMargin: '0px 0px -45% 0px' });
+      items.forEach(function (li) { io.observe(li); });
+
+      // The quarter's figure runs up to its total, and the bar shows the
+      // share of the quarter spent on meetings rated not worth it.
+      var fig = document.getElementById('quarter-figure');
+      var fill = document.getElementById('quarter-fill');
+      var target = 14336, share = 14336 / 72801;
+      fig.textContent = '$0';
+      fill.style.width = '0%';
+      var once = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        once.disconnect();
+        var t0 = performance.now(), dur = 1600;
+        (function step(now) {
+          var p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+          fig.textContent = '$' + Math.round(target * e).toLocaleString('en-US');
+          fill.style.width = (share * e * 100) + '%';
+          if (p < 1) requestAnimationFrame(step);
+        })(t0);
+      }, { threshold: 0.6 });
+      once.observe(fig);
     })();
   </script>
 
